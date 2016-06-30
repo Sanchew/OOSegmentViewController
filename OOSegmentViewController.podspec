@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "OOSegmentViewController"
-  s.version      = "0.0.2"
-  s.summary      = "A short description of OOSegmentViewController."
+  s.version      = "0.0.1"
+  s.summary      = "oosegment pageviewcontroller navigatioin"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+		navigation segment bar pageViewController cursor
                    DESC
 
   s.homepage     = "https://github.com/lijianwei-jj/OOSegmentViewController"
@@ -39,7 +40,7 @@ Pod::Spec.new do |s|
   #
 
   s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+   s.license      = { :type => "MIT", :file => "LINCENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -64,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
