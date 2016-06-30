@@ -14,6 +14,9 @@
 		9B05AA3E1D2115D5000A1611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B05AA3C1D2115D5000A1611 /* LaunchScreen.storyboard */; };
 		9B05AA491D2115D5000A1611 /* OOSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA481D2115D5000A1611 /* OOSegmentViewControllerTests.swift */; };
 		9B05AA541D2115D5000A1611 /* OOSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA531D2115D5000A1611 /* OOSegmentViewControllerUITests.swift */; };
+		9B05AA621D21163D000A1611 /* OOSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */; };
+		9B05AA641D2117DC000A1611 /* OOSegmentNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */; };
+		9B43BE311D228DA300D97C9A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43BE301D228DA300D97C9A /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		9B05AA4F1D2115D5000A1611 /* OOSegmentViewControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OOSegmentViewControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B05AA531D2115D5000A1611 /* OOSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
 		9B05AA551D2115D5000A1611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOSegmentViewController.swift; sourceTree = "<group>"; };
+		9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOSegmentNavigationBar.swift; sourceTree = "<group>"; };
+		9B43BE301D228DA300D97C9A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +106,12 @@
 				9B05AA331D2115D5000A1611 /* AppDelegate.swift */,
 				9B05AA351D2115D5000A1611 /* ViewController.swift */,
 				9B05AA371D2115D5000A1611 /* Main.storyboard */,
+				9B43BE301D228DA300D97C9A /* HomeViewController.swift */,
 				9B05AA3A1D2115D5000A1611 /* Assets.xcassets */,
 				9B05AA3C1D2115D5000A1611 /* LaunchScreen.storyboard */,
 				9B05AA3F1D2115D5000A1611 /* Info.plist */,
+				9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */,
+				9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */,
 			);
 			path = OOSegmentViewController;
 			sourceTree = "<group>";
@@ -256,7 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B43BE311D228DA300D97C9A /* HomeViewController.swift in Sources */,
 				9B05AA361D2115D5000A1611 /* ViewController.swift in Sources */,
+				9B05AA641D2117DC000A1611 /* OOSegmentNavigationBar.swift in Sources */,
+				9B05AA621D21163D000A1611 /* OOSegmentViewController.swift in Sources */,
 				9B05AA341D2115D5000A1611 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +496,7 @@
 				9B05AA5A1D2115D5000A1611 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B05AA5B1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +505,7 @@
 				9B05AA5D1D2115D5000A1611 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B05AA5E1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +514,7 @@
 				9B05AA601D2115D5000A1611 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
