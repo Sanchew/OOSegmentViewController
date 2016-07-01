@@ -30,7 +30,7 @@ public class OOSegmentViewController : UIViewController {
 //            }
         }
     }
-    var pendingIndex = -1
+    var pendingIndex = 0
     public var titles = [String]() {
         didSet {
 //            print(titles)
@@ -156,11 +156,14 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
         if completed {
             viewControllerDidShow()
         }
+//        pageViewController.view.userInteractionEnabled = true
 //        pendingIndex = -1
     }
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
+        print(pendingIndex)
+//        pageViewController.view.userInteractionEnabled = false
         viewControllerWillShow()
     }
     

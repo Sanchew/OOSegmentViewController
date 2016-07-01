@@ -116,7 +116,7 @@ class OOSegmentNavigationBar : UIScrollView {
     }
     
     func updateSelectItem() {
-        if let pageIndex = segmentViewController?.pageIndex {
+        if let pageIndex = segmentViewController?.pendingIndex {
             selectedItem.selected = false
             selectedItem = titleItemMap[titles[pageIndex]]
             selectedItem.selected = true
@@ -131,7 +131,7 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
     
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let segmentViewController = segmentViewController where segmentViewController.pendingIndex != -1 else {
+        guard let segmentViewController = segmentViewController else {
             return
         }
         
