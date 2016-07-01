@@ -17,6 +17,7 @@
 		9B05AA621D21163D000A1611 /* OOSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */; };
 		9B05AA641D2117DC000A1611 /* OOSegmentNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */; };
 		9B43BE311D228DA300D97C9A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43BE301D228DA300D97C9A /* HomeViewController.swift */; };
+		9B4EC5B31D2635E0006E0E72 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4EC5B21D2635E0006E0E72 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOSegmentViewController.swift; sourceTree = "<group>"; };
 		9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOSegmentNavigationBar.swift; sourceTree = "<group>"; };
 		9B43BE301D228DA300D97C9A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		9B4EC5B21D2635E0006E0E72 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				9B05AA3F1D2115D5000A1611 /* Info.plist */,
 				9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */,
 				9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */,
+				9B4EC5B21D2635E0006E0E72 /* TableViewController.swift */,
 			);
 			path = OOSegmentViewController;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B43BE311D228DA300D97C9A /* HomeViewController.swift in Sources */,
+				9B4EC5B31D2635E0006E0E72 /* TableViewController.swift in Sources */,
 				9B05AA361D2115D5000A1611 /* ViewController.swift in Sources */,
 				9B05AA641D2117DC000A1611 /* OOSegmentNavigationBar.swift in Sources */,
 				9B05AA621D21163D000A1611 /* OOSegmentViewController.swift in Sources */,

@@ -32,8 +32,10 @@ class ViewController: UIViewController {
             "GOHomeHHHH",
             "TESTSSSSSS"
         ]
+        let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        
         vc.controllers = [
-            createController(),
+            sb.instantiateViewControllerWithIdentifier("TableViewController"),
             createController(),
             createController(),
             createController(),

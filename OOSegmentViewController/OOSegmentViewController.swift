@@ -15,13 +15,13 @@ public class OOSegmentViewController : UIViewController {
     private var navBarHeight = 40
     
     
-    var titleColor = UIColor.blackColor()
-    var titleSelectedColor = UIColor.redColor()
-    var fontSize = 15 as CGFloat
-    var cursorColor = UIColor.whiteColor()
-    var navBarBackgroundColor = UIColor.whiteColor()
+    public var titleColor = UIColor.blackColor()
+    public var titleSelectedColor = UIColor.redColor()
+    public var fontSize = 15 as CGFloat
+    public var cursorColor = UIColor.whiteColor()
+    public var navBarBackgroundColor = UIColor.whiteColor()
     
-    var pageIndex = 0 {
+    public var pageIndex = 0 {
         didSet {
 //            if pageIndex != oldValue {
 //                moveToControllerAtIndex(pageIndex)
@@ -29,12 +29,12 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     var pendingIndex = -1
-    var titles = [String]() {
+    public var titles = [String]() {
         didSet {
 //            print(titles)
         }
     }
-    var controllers = [UIViewController]() {
+    public var controllers = [UIViewController]() {
         didSet {
 //            print(controllers)
         }
@@ -45,7 +45,7 @@ public class OOSegmentViewController : UIViewController {
         configUI()
     }
     
-    func configUI(){
+    public func configUI(){
         
         self.edgesForExtendedLayout = UIRectEdge.None
         
@@ -86,7 +86,7 @@ public class OOSegmentViewController : UIViewController {
         
     }
     
-    func moveToControllerAtIndex(index:Int, animated : Bool = true){
+    public func moveToControllerAtIndex(index:Int, animated : Bool = true){
         
         let direction : UIPageViewControllerNavigationDirection = index > pageIndex ? .Forward : .Reverse
         pendingIndex = index
