@@ -32,6 +32,7 @@ class HomeViewController: OOSegmentViewController {
         self.pageIndex = 2
     }
     
+    
     func createController() -> UIViewController {
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor(red: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), green: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), blue: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), alpha: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)))
