@@ -108,7 +108,6 @@ class OOSegmentNavigationBar : UIScrollView {
     }
     
     func itemClick(sender:UIButton) {
-        print(sender)
         segmentViewController?.moveToControllerAtIndex(sender.tag)
     }
     

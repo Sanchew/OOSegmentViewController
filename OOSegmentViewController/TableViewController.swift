@@ -21,4 +21,8 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+    }
+    
 }
