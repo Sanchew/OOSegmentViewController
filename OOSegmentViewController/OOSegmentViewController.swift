@@ -94,12 +94,17 @@ public class OOSegmentViewController : UIViewController {
         
         let direction : UIPageViewControllerNavigationDirection = index > pageIndex ? .Forward : .Reverse
         pendingIndex = index
+        viewControllerWillShow()
         pageViewController.setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
                 self?.viewControllerDidShow()
                 self?.pendingIndex = -1
             }
         }
+    }
+    
+    func viewControllerWillShow() {
+        
     }
     
     func viewControllerDidShow() {
@@ -155,6 +160,7 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
+        viewControllerWillShow()
     }
     
     public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
