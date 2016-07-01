@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OOSegmentViewController : UIViewController {
+public class OOSegmentViewController : UIViewController {
     
     private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     private var navBar = OOSegmentNavigationBar()
@@ -40,7 +40,7 @@ class OOSegmentViewController : UIViewController {
         }
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         configUI()
     }
@@ -110,22 +110,22 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
         return controllers[index]
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             pageIndex = pendingIndex
         }
         pendingIndex = -1
     }
     
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         return nextViewController(viewController, combine: +)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         return nextViewController(viewController, combine: -)
     }
     
