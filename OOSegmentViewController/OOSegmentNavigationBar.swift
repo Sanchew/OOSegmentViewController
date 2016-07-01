@@ -114,6 +114,15 @@ class OOSegmentNavigationBar : UIScrollView {
     func titleWidthAtFont(font:UIFont,index:Int) -> CGFloat {
         return titles[index].boundingRectWithSize(CGSize(width: CGFloat.max, height: font.lineHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size.width + 4
     }
+    
+    func updateSelectItem() {
+        if let pageIndex = segmentViewController?.pageIndex {
+            selectedItem.selected = false
+            selectedItem = titleItemMap[titles[pageIndex]]
+            selectedItem.selected = true
+        }
+    }
+    
 }
 
 
@@ -160,21 +169,6 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
             } else if CGRectGetMinX(self.bounds) > CGRectGetMinX(button.frame) - 2 {
                 self.contentOffset.x = CGRectGetMinX(button.frame) - 2
             }
-        }
-    }
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        scrollViewEndScroll()
-    }
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        scrollViewEndScroll()
-    }
-    
-    func scrollViewEndScroll() {
-        if let pageIndex = segmentViewController?.pendingIndex == -1 ? segmentViewController?.pageIndex : segmentViewController?.pendingIndex {
-            selectedItem.selected = false
-            selectedItem = titleItemMap[titles[pageIndex]]
-            selectedItem.selected = true
         }
     }
 }

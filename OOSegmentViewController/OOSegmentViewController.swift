@@ -98,7 +98,7 @@ public class OOSegmentViewController : UIViewController {
         pageViewController.setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
                 self?.viewControllerDidShow()
-                self?.pendingIndex = -1
+//                self?.pendingIndex = -1
             }
         }
     }
@@ -109,6 +109,7 @@ public class OOSegmentViewController : UIViewController {
     
     func viewControllerDidShow() {
         self.pageIndex = self.pendingIndex
+        navBar.updateSelectItem()
         setNavBarHidden(false,animated:false)
     }
     
@@ -155,7 +156,7 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
         if completed {
             viewControllerDidShow()
         }
-        pendingIndex = -1
+//        pendingIndex = -1
     }
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
