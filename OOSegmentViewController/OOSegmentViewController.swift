@@ -12,8 +12,10 @@ public class OOSegmentViewController : UIViewController {
     
     private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     private var navBar = OOSegmentNavigationBar()
-    private var navBarHeight = 40
-    
+    private var navBarHeight = CGFloat(40)
+    private var navBarHideAnimate = false
+    private var lastContentOffset = CGFloat(0)
+    private var navBarTopLayoutConstraint : NSLayoutConstraint!
     
     public var titleColor = UIColor.blackColor()
     public var titleSelectedColor = UIColor.redColor()
@@ -68,7 +70,9 @@ public class OOSegmentViewController : UIViewController {
         }
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
+        navBarTopLayoutConstraint = constraints.first!
+        self.view.addConstraints(constraints)
         
         
         pageViewController.setViewControllers([controllers[pageIndex]], direction: .Forward, animated: false, completion: nil)
@@ -92,8 +96,40 @@ public class OOSegmentViewController : UIViewController {
         pendingIndex = index
         pageViewController.setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
-                self?.pageIndex = self!.pendingIndex
+                self?.viewControllerDidShow()
                 self?.pendingIndex = -1
+            }
+        }
+    }
+    
+    func viewControllerDidShow() {
+        self.pageIndex = self.pendingIndex
+        setNavBarHidden(false,animated:false)
+    }
+    
+    func setNavBarHidden(hidden: Bool , animated : Bool = true) {
+        guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
+            return
+        }
+        navBarHideAnimate = true
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+            if (animated) {
+                self.view.layoutIfNeeded()
+            }
+        }) { _ in
+            self.navBarHideAnimate = false
+        }
+    }
+    
+    public func followScrollView(scrollView: UIScrollView) {
+        if scrollView.tracking == true && abs(scrollView.contentOffset.y) >= navBarHeight && navBarHideAnimate == false {
+            let up = (scrollView.contentOffset.y > lastContentOffset) ? true : false
+            lastContentOffset = scrollView.contentOffset.y
+            if up && self.navBarTopLayoutConstraint.constant == 0 {
+                setNavBarHidden(true)
+            } else if !up && self.navBarTopLayoutConstraint.constant == -navBarHeight {
+                setNavBarHidden(false)
             }
         }
     }
@@ -112,7 +148,7 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
-            pageIndex = pendingIndex
+            viewControllerDidShow()
         }
         pendingIndex = -1
     }
@@ -130,4 +166,3 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     }
     
 }
-
