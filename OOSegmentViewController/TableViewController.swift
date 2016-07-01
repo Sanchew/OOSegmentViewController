@@ -11,6 +11,7 @@ import UIKit
 class TableViewController: UITableViewController {
 
     
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
@@ -22,7 +23,7 @@ class TableViewController: UITableViewController {
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
+        (parentViewController as? OOSegmentViewController)?.scrollViewDidScroll(scrollView)
     }
     
 }

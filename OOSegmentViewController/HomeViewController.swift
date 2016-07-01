@@ -12,7 +12,7 @@ class HomeViewController: OOSegmentViewController {
 
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init()
         titles = [
             "One",
             "Two",
@@ -31,6 +31,7 @@ class HomeViewController: OOSegmentViewController {
     func action() {
         self.pageIndex = 2
     }
+    
     
     func createController() -> UIViewController {
         let vc = UIViewController()
