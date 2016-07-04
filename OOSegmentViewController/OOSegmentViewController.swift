@@ -131,10 +131,12 @@ public class OOSegmentViewController : UIViewController {
     }
     
     public override func followScrollView(scrollView: UIScrollView) {
+//        print(scrollView.contentOffset.y)
         if scrollView.tracking == true && abs(scrollView.contentOffset.y) >= navBarHeight && navBarHideAnimate == false {
             let up = (scrollView.contentOffset.y > lastContentOffset) ? true : false
             lastContentOffset = scrollView.contentOffset.y
-            if up && self.navBarTopLayoutConstraint.constant == 0 {
+            
+            if up && self.navBarTopLayoutConstraint.constant == 0 && scrollView.contentOffset.y > 0 {
                 setNavBarHidden(true)
             } else if !up && self.navBarTopLayoutConstraint.constant == -navBarHeight {
                 setNavBarHidden(false)
