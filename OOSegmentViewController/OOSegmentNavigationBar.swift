@@ -129,7 +129,7 @@ class OOSegmentNavigationBar : UIScrollView {
 extension OOSegmentNavigationBar : UIScrollViewDelegate {
     
     
-    
+    // XXX: 这还是有点小问题  当用户从最右开始拖动 cursor 会有跳动
     func scrollViewDidScroll(scrollView: UIScrollView) {
         guard let segmentViewController = segmentViewController else {
             return
