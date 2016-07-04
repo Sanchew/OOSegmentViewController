@@ -140,21 +140,18 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
         if scrollView.contentOffset.x == fullWidth {
             return
         }
-        let oldIndex = segmentViewController.pageIndex //, index = segmentViewController.pendingIndex// segmentViewController.getFocusViewControllerIndex() // = segmentViewController.pendingIndex
+        let oldIndex = segmentViewController.pageIndex
         var index = segmentViewController.pendingIndex
-        if index == oldIndex {
+        if abs(index - oldIndex) < 2 {
             index = scrollView.contentOffset.x > fullWidth ? oldIndex + 1 : oldIndex - 1
         }
+        
         guard index >= 0 && index < titles.count else {
             return
         }
         let button = titleItemMap[titles[index]]! , oldButton = titleItemMap[titles[oldIndex]]!
         
         let xScale = scrollView.contentOffset.x % fullWidth / fullWidth
-//        if xScale == 0 {
-//            return
-//        }
-//        let titleFont = UIFont.systemFontOfSize(fontSize)
         
         let indicatorWidth = button.frame.size.width // titleWidthAtFont(titleFont, index: index)
         let oldWidth = oldButton.frame.size.width // titleWidthAtFont(titleFont, index: oldIndex)

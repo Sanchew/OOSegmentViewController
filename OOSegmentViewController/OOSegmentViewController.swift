@@ -171,7 +171,6 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             viewControllerDidShow()
-            print("currentPage = \(controllers.indexOf((pageViewController.viewControllers?.last!)!))  new \(pendingIndex)")
         } else {
             // XXX: 有一个回弹问题吧
             pendingIndex = pageIndex
