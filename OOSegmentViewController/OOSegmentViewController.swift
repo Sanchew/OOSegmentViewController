@@ -31,6 +31,7 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     var pendingIndex = 0
+    
     public var titles = [String]() {
         didSet {
 //            print(titles)
@@ -108,8 +109,9 @@ public class OOSegmentViewController : UIViewController {
     }
     
     func viewControllerDidShow() {
-        self.pageIndex = self.pendingIndex
-        navBar.updateSelectItem()
+//        self.pageIndex = self.pendingIndex
+        self.pageIndex = getFocusViewControllerIndex()
+        navBar.updateSelectItem(self.pageIndex)
         setNavBarHidden(false,animated:false)
     }
     
@@ -128,7 +130,7 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     
-    public func followScrollView(scrollView: UIScrollView) {
+    public override func followScrollView(scrollView: UIScrollView) {
         if scrollView.tracking == true && abs(scrollView.contentOffset.y) >= navBarHeight && navBarHideAnimate == false {
             let up = (scrollView.contentOffset.y > lastContentOffset) ? true : false
             lastContentOffset = scrollView.contentOffset.y
@@ -137,6 +139,20 @@ public class OOSegmentViewController : UIViewController {
             } else if !up && self.navBarTopLayoutConstraint.constant == -navBarHeight {
                 setNavBarHidden(false)
             }
+        }
+    }
+    
+    func getFocusViewControllerIndex()->Int {
+        return controllers.indexOf((pageViewController.viewControllers?.last)!)!
+    }
+    
+}
+// XXX:
+extension UIViewController {
+    
+    public func followScrollView(scrollView: UIScrollView) {
+        if let segment = self.parentViewController as? OOSegmentViewController {
+            segment.followScrollView(scrollView)
         }
     }
     
@@ -155,6 +171,10 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             viewControllerDidShow()
+            print("currentPage = \(controllers.indexOf((pageViewController.viewControllers?.last!)!))  new \(pendingIndex)")
+        } else {
+            // XXX: 有一个回弹问题吧
+            pendingIndex = pageIndex
         }
 //        pageViewController.view.userInteractionEnabled = true
 //        pendingIndex = -1
@@ -162,8 +182,6 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
-        print(pendingIndex)
-//        pageViewController.view.userInteractionEnabled = false
         viewControllerWillShow()
     }
     

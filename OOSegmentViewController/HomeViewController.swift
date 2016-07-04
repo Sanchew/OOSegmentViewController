@@ -24,12 +24,17 @@ class HomeViewController: OOSegmentViewController {
             createController(),
             createController()
         ]
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(action))
         
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(action))
+    }
+    
     func action() {
-        self.pageIndex = 2
+        moveToControllerAtIndex(2,animated: false)
     }
     
     

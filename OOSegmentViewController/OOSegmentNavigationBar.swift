@@ -115,12 +115,12 @@ class OOSegmentNavigationBar : UIScrollView {
         return titles[index].boundingRectWithSize(CGSize(width: CGFloat.max, height: font.lineHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size.width + 4
     }
     
-    func updateSelectItem() {
-        if let pageIndex = segmentViewController?.pendingIndex {
+    func updateSelectItem(newIndex: Int) {
+//        if let pageIndex = segmentViewController?.pendingIndex {
             selectedItem.selected = false
-            selectedItem = titleItemMap[titles[pageIndex]]
+            selectedItem = titleItemMap[titles[newIndex]]
             selectedItem.selected = true
-        }
+//        }
     }
     
 }
@@ -134,16 +134,26 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
         guard let segmentViewController = segmentViewController else {
             return
         }
-        
-        let oldIndex = segmentViewController.pageIndex , index = segmentViewController.pendingIndex
-        
-        let button = titleItemMap[titles[index]]! , oldButton = titleItemMap[titles[oldIndex]]!
+//        print(scrollView.contentOffset.x)
         let fullWidth = CGRectGetWidth(segmentViewController.view.frame)
-        
-        let xScale = scrollView.contentOffset.x % fullWidth / fullWidth
-        if xScale == 0 {
+        // view移动完后系统会重新设置当前view的位置
+        if scrollView.contentOffset.x == fullWidth {
             return
         }
+        let oldIndex = segmentViewController.pageIndex //, index = segmentViewController.pendingIndex// segmentViewController.getFocusViewControllerIndex() // = segmentViewController.pendingIndex
+        var index = segmentViewController.pendingIndex
+        if index == oldIndex {
+            index = scrollView.contentOffset.x > fullWidth ? oldIndex + 1 : oldIndex - 1
+        }
+        guard index >= 0 && index < titles.count else {
+            return
+        }
+        let button = titleItemMap[titles[index]]! , oldButton = titleItemMap[titles[oldIndex]]!
+        
+        let xScale = scrollView.contentOffset.x % fullWidth / fullWidth
+//        if xScale == 0 {
+//            return
+//        }
 //        let titleFont = UIFont.systemFontOfSize(fontSize)
         
         let indicatorWidth = button.frame.size.width // titleWidthAtFont(titleFont, index: index)
@@ -158,11 +168,9 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
 //        print("nx:\(button.center.x)    ox:\(oldButton.center.x)  x:\(x)   f:\(f)     s:\(s)  xs:\(xScale)")
         
         
-        UIView.animateWithDuration(0.1) {
-            self.cursor.frame.size.width = w
-            self.cursor.center.x = x
-//            print("\(CGRectGetMaxX(self.bounds))  \(CGRectGetMaxX(button.frame))")
-        }
+        self.cursor.frame.size.width = w
+        self.cursor.center.x = x
+        
         UIView.animateWithDuration(0.3) {
             if CGRectGetMaxX(self.bounds) < CGRectGetMaxX(button.frame) + 2 {
                 self.contentOffset.x += (CGRectGetMaxX(button.frame) - CGRectGetMaxX(self.bounds) + 2)
@@ -171,4 +179,5 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
             }
         }
     }
+    
 }
