@@ -91,7 +91,7 @@ class OOSegmentNavigationBar : UIScrollView {
             let item = titleItemMap[$1]
             let itemWidth = ceil(titleWidthAtFont(UIFont.systemFontOfSize(fontSize), index: $0))
             item?.frame = CGRectMake(contentWidth, 0, itemWidth, CGRectGetHeight(self.frame))
-            if $0 == 0 {
+            if $0 == segmentViewController?.pageIndex ?? 0 {
                 cursor.frame.size.width = itemWidth + 4
                 cursor.frame.origin.x = contentWidth - 2
                 item?.selected = true

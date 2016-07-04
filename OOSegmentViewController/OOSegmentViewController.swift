@@ -82,8 +82,8 @@ public class OOSegmentViewController : UIViewController {
         navBar.titleSelectedColor = titleSelectedColor
         navBar.cursorColor = cursorColor
         navBar.fontSize = fontSize
-        navBar.titles = titles
         navBar.segmentViewController = self
+        navBar.titles = titles
         
         if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
             scrollView.delegate = navBar

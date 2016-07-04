@@ -44,6 +44,7 @@ class ViewController: UIViewController {
             createController(),
             createController()
         ]
+        vc.pageIndex = 3
         vc.cursorColor = UIColor.blueColor()
         vc.titleSelectedColor = UIColor.blueColor()
         self.navigationController?.pushViewController(vc, animated: true)
