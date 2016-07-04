@@ -8,6 +8,14 @@
 
 import UIKit
 
+
+public protocol OOSegmentDelegate {
+    
+    func segmentViewController(segmentViewController:OOSegmentViewController,willShowViewController viewController:UIViewController) -> Void;
+    func segmentViewController(segmentViewController:OOSegmentViewController,didShowViewController viewController:UIViewController) -> Void;
+    
+}
+
 public class OOSegmentViewController : UIViewController {
     
     private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
@@ -17,6 +25,7 @@ public class OOSegmentViewController : UIViewController {
     private var lastContentOffset = CGFloat(0)
     private var navBarTopLayoutConstraint : NSLayoutConstraint!
     
+    public var delegate : OOSegmentDelegate?
     public var titleColor = UIColor.blackColor()
     public var titleSelectedColor = UIColor.redColor()
     public var fontSize = 15 as CGFloat
@@ -106,6 +115,7 @@ public class OOSegmentViewController : UIViewController {
     
     func viewControllerWillShow() {
         
+        delegate?.segmentViewController(self, willShowViewController: (pageViewController.viewControllers?.last)!)
     }
     
     func viewControllerDidShow() {
@@ -113,6 +123,7 @@ public class OOSegmentViewController : UIViewController {
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
         setNavBarHidden(false,animated:false)
+        delegate?.segmentViewController(self, didShowViewController: (pageViewController.viewControllers?.last)!)
     }
     
     func setNavBarHidden(hidden: Bool , animated : Bool = true) {
