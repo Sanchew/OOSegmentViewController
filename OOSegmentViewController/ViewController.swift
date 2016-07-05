@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             "TESTSSSSSS"
         ]
         let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        
+        vc.titleOffset = 20
         vc.controllers = [
             sb.instantiateViewControllerWithIdentifier("TableViewController"),
             createController(),

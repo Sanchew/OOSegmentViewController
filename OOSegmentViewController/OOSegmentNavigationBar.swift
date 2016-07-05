@@ -19,6 +19,8 @@ class OOSegmentNavigationBar : UIScrollView {
     var titleColor : UIColor!
     var titleSelectedColor : UIColor!
     var fontSize : CGFloat!
+    var itemMargin : CGFloat = 0
+    var itemOffset : CGFloat = 0
     
     var segmentViewController : OOSegmentViewController?
     
@@ -26,6 +28,7 @@ class OOSegmentNavigationBar : UIScrollView {
     private var selectedItem : UIButton!
     
     private var contentView = UIView(frame: CGRectZero)
+//    private var lastContentOffset = CGFloat(0)
     private var cursor = UIView(frame: CGRectMake(0,0,0,2))
     var cursorColor : UIColor! {
         didSet {
@@ -86,7 +89,7 @@ class OOSegmentNavigationBar : UIScrollView {
     }
     
     func layoutItems() {
-        var contentWidth = 8 as CGFloat
+        var contentWidth = itemMargin + itemOffset
         titles.enumerate().forEach {
             let item = titleItemMap[$1]
             let itemWidth = ceil(titleWidthAtFont(UIFont.systemFontOfSize(fontSize), index: $0))
@@ -97,10 +100,11 @@ class OOSegmentNavigationBar : UIScrollView {
                 item?.selected = true
                 selectedItem = item
             }
-            contentWidth += itemWidth + 8
+            contentWidth += itemWidth + itemMargin
         }
-        contentSize.width = CGFloat(contentWidth)
-        contentView.frame.size.width = CGFloat(contentWidth)
+        contentWidth += itemOffset
+        contentSize.width = contentWidth
+        contentView.frame.size.width = contentWidth
 //        contentView.frame.origin.x = contentWidth < CGRectGetWidth(self.frame) ? (CGRectGetWidth(self.frame) - contentWidth) / 2.0 : 0
         if contentWidth < CGRectGetWidth(self.frame) {
             contentView.frame.origin.x = (CGRectGetWidth(self.frame) - contentWidth) / 2.0
@@ -131,10 +135,10 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
     
     // XXX: 这还是有点小问题  当用户从最右开始拖动 cursor 会有跳动
     func scrollViewDidScroll(scrollView: UIScrollView) {
+//        print(scrollView.contentOffset.x)
         guard let segmentViewController = segmentViewController else {
             return
         }
-//        print(scrollView.contentOffset.x)
         let fullWidth = CGRectGetWidth(segmentViewController.view.frame)
         // view移动完后系统会重新设置当前view的位置
         if scrollView.contentOffset.x == fullWidth {
@@ -142,6 +146,11 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
         }
         let oldIndex = segmentViewController.pageIndex
         var index = segmentViewController.pendingIndex
+        
+        guard scrollView.contentOffset.x >= 0 && scrollView.contentOffset.x <= fullWidth * 2 else {
+            return
+        }
+        
         if abs(index - oldIndex) < 2 {
             index = scrollView.contentOffset.x > fullWidth ? oldIndex + 1 : oldIndex - 1
         }
@@ -161,20 +170,31 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
         let w = (oldWidth - indicatorWidth) * s + indicatorWidth
         let xOffset = (oldButton.center.x - button.center.x) * s
         let x = xOffset + button.center.x
-        
+//        print(xOffset)
 //        print("nx:\(button.center.x)    ox:\(oldButton.center.x)  x:\(x)   f:\(f)     s:\(s)  xs:\(xScale)")
         
         
         self.cursor.frame.size.width = w
         self.cursor.center.x = x
-        
-        UIView.animateWithDuration(0.3) {
-            if CGRectGetMaxX(self.bounds) < CGRectGetMaxX(button.frame) + 2 {
-                self.contentOffset.x += (CGRectGetMaxX(button.frame) - CGRectGetMaxX(self.bounds) + 2)
-            } else if CGRectGetMinX(self.bounds) > CGRectGetMinX(button.frame) - 2 {
-                self.contentOffset.x = CGRectGetMinX(button.frame) - 2
-            }
-        }
+//        if contentSize.width > fullWidth {
+//            if false {
+                UIView.animateWithDuration(0.3) {
+                    if CGRectGetMaxX(self.bounds) < CGRectGetMaxX(button.frame) + 2 {
+                        self.contentOffset.x += (CGRectGetMaxX(button.frame) - CGRectGetMaxX(self.bounds) + 2) + self.itemOffset
+                    } else if CGRectGetMinX(self.bounds) > CGRectGetMinX(button.frame) - 2 {
+                        self.contentOffset.x = CGRectGetMinX(button.frame) - 2 - self.itemOffset
+                    }
+                }
+//            } else {
+//                var offset = CGFloat(0)
+//                if button.center.x < fullWidth / 2.0 || button.center.x > contentSize.width - fullWidth / 2.0 {
+//                    offset = button.center.x < fullWidth / 2.0  ? fullWidth / 2.0 - button.center.x : contentSize.width - fullWidth / 2.0 -  button.center.x
+//                }
+//                print(offset)
+//                UIView.animateWithDuration(0.3) {
+//                    self.contentOffset.x = button.center.x - fullWidth / 2.0 + offset
+//                }
+//            }
+//        }
     }
-    
 }

@@ -20,17 +20,19 @@ public class OOSegmentViewController : UIViewController {
     
     private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     private var navBar = OOSegmentNavigationBar()
-    private var navBarHeight = CGFloat(40)
     private var navBarHideAnimate = false
     private var lastContentOffset = CGFloat(0)
     private var navBarTopLayoutConstraint : NSLayoutConstraint!
     
+    public var navBarHeight = CGFloat(40)
     public var delegate : OOSegmentDelegate?
     public var titleColor = UIColor.blackColor()
     public var titleSelectedColor = UIColor.redColor()
-    public var fontSize = 15 as CGFloat
+    public var fontSize = CGFloat(15)
     public var cursorColor = UIColor.whiteColor()
     public var navBarBackgroundColor = UIColor.whiteColor()
+    public var titleMargin = CGFloat(8)
+    public var titleOffset = CGFloat(0)
     
     public var pageIndex = 0 {
         didSet {
@@ -93,6 +95,8 @@ public class OOSegmentViewController : UIViewController {
         navBar.fontSize = fontSize
         navBar.segmentViewController = self
         navBar.titles = titles
+        navBar.itemMargin = titleMargin
+        navBar.itemOffset = titleOffset
         
         if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
             scrollView.delegate = navBar

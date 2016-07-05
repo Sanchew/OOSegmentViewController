@@ -24,7 +24,8 @@ class HomeViewController: OOSegmentViewController {
             createController(),
             createController()
         ]
-        
+        cursorColor = UIColor.blackColor()
+        titleMargin = 30
     }
     
     override func viewDidLoad() {
