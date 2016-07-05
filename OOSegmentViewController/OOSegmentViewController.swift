@@ -39,6 +39,7 @@ public class OOSegmentViewController : UIViewController {
 //            if pageIndex != oldValue {
 //                moveToControllerAtIndex(pageIndex)
 //            }
+            pendingIndex = pageIndex
         }
     }
     var pendingIndex = 0

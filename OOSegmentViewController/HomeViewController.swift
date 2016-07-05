@@ -26,6 +26,7 @@ class HomeViewController: OOSegmentViewController {
         ]
         cursorColor = UIColor.blackColor()
         titleMargin = 30
+        pageIndex = 2
     }
     
     override func viewDidLoad() {
