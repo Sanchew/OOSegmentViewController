@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OOSegmentNavigationBar : UIScrollView {
+public class OOSegmentNavigationBar : UIScrollView {
 
     var titles = [String]() {
         didSet {
@@ -19,14 +19,15 @@ class OOSegmentNavigationBar : UIScrollView {
     var titleColor : UIColor!
     var titleSelectedColor : UIColor!
     var fontSize : CGFloat!
-    var itemMargin : CGFloat = 0
-    var itemOffset : CGFloat = 0
+    public var itemMargin : CGFloat = 0
+    public var itemOffset : CGFloat = 0
     
     var segmentViewController : OOSegmentViewController?
     
     private var titleItemMap = [String:UIButton]()
     private var selectedItem : UIButton!
     
+    var moveEffect : CursorMoveEffect!
     private var contentView = UIView(frame: CGRectZero)
 //    private var lastContentOffset = CGFloat(0)
     private var cursor = UIView(frame: CGRectMake(0,0,0,2))
@@ -46,11 +47,11 @@ class OOSegmentNavigationBar : UIScrollView {
         configUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         if contentView.frame == CGRectZero {
             contentView.frame.size.height = self.frame.size.height
@@ -134,7 +135,7 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
     
     
     // XXX: 这还是有点小问题  当用户从最右开始拖动 cursor 会有跳动
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
 //        print(scrollView.contentOffset.x)
         guard let segmentViewController = segmentViewController else {
             return
@@ -144,12 +145,13 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
         if scrollView.contentOffset.x == fullWidth {
             return
         }
-        let oldIndex = segmentViewController.pageIndex
-        var index = segmentViewController.pendingIndex
         
         guard scrollView.contentOffset.x >= 0 && scrollView.contentOffset.x <= fullWidth * 2 else {
             return
         }
+        
+        let oldIndex = segmentViewController.pageIndex
+        var index = segmentViewController.pendingIndex
         
         if abs(index - oldIndex) < 2 {
             index = scrollView.contentOffset.x > fullWidth ? oldIndex + 1 : oldIndex - 1
@@ -159,42 +161,26 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
             return
         }
         let button = titleItemMap[titles[index]]! , oldButton = titleItemMap[titles[oldIndex]]!
+       
+        if let _ = moveEffect.scroll?(scrollView, navBar: self, cursor: self.cursor, newItem: button, oldItem: oldButton) {
+            return
+            
+        }
         
         let xScale = scrollView.contentOffset.x % fullWidth / fullWidth
         
         let indicatorWidth = button.frame.size.width // titleWidthAtFont(titleFont, index: index)
         let oldWidth = oldButton.frame.size.width // titleWidthAtFont(titleFont, index: oldIndex)
-        let f = CGFloat(index - oldIndex)
+        let f = CGFloat(button.tag - oldButton.tag)
         var s = (f > 0 ? 1.0 - (xScale == 0 ? 1.0 : xScale) : xScale) // == 1.0 ? xScale : 0
         s = s < 0.01 || s > 0.99 ? round(s) : s
-        let w = (oldWidth - indicatorWidth) * s + indicatorWidth
-        let xOffset = (oldButton.center.x - button.center.x) * s
-        let x = xOffset + button.center.x
-//        print(xOffset)
-//        print("nx:\(button.center.x)    ox:\(oldButton.center.x)  x:\(x)   f:\(f)     s:\(s)  xs:\(xScale)")
+        let w = round((oldWidth - indicatorWidth) * s + indicatorWidth)
+        let x = round((oldButton.frame.origin.x - button.frame.origin.x) * s) + button.frame.origin.x
+        let cx = round((oldButton.center.x - button.center.x) * s) + button.center.x
         
-        
-        self.cursor.frame.size.width = w
-        self.cursor.center.x = x
-//        if contentSize.width > fullWidth {
-//            if false {
-                UIView.animateWithDuration(0.3) {
-                    if CGRectGetMaxX(self.bounds) < CGRectGetMaxX(button.frame) + 2 {
-                        self.contentOffset.x += (CGRectGetMaxX(button.frame) - CGRectGetMaxX(self.bounds) + 2) + self.itemOffset
-                    } else if CGRectGetMinX(self.bounds) > CGRectGetMinX(button.frame) - 2 {
-                        self.contentOffset.x = CGRectGetMinX(button.frame) - 2 - self.itemOffset
-                    }
-                }
-//            } else {
-//                var offset = CGFloat(0)
-//                if button.center.x < fullWidth / 2.0 || button.center.x > contentSize.width - fullWidth / 2.0 {
-//                    offset = button.center.x < fullWidth / 2.0  ? fullWidth / 2.0 - button.center.x : contentSize.width - fullWidth / 2.0 -  button.center.x
-//                }
-//                print(offset)
-//                UIView.animateWithDuration(0.3) {
-//                    self.contentOffset.x = button.center.x - fullWidth / 2.0 + offset
-//                }
-//            }
-//        }
+        if let _ = moveEffect.scroll?(scrollView, navBar: self, cursor: self.cursor, fullWidth: fullWidth, xScale: xScale, correctXScale: s,computeWidth:w, leftXOffset: x, centerXOffset: cx, finished: s==0) {
+            return
+        }
     }
+    
 }

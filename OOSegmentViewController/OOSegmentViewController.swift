@@ -34,6 +34,8 @@ public class OOSegmentViewController : UIViewController {
     public var titleMargin = CGFloat(8)
     public var titleOffset = CGFloat(0)
     
+    public var cursorMoveEffect : CursorMoveEffect = OOCursorMoveEffect()
+    
     public var pageIndex = 0 {
         didSet {
 //            if pageIndex != oldValue {
@@ -98,6 +100,7 @@ public class OOSegmentViewController : UIViewController {
         navBar.titles = titles
         navBar.itemMargin = titleMargin
         navBar.itemOffset = titleOffset
+        navBar.moveEffect = cursorMoveEffect
         
         if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
             scrollView.delegate = navBar

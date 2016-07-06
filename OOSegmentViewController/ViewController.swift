@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         ]
         let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         vc.titleOffset = 20
+        vc.titleMargin = 30
         vc.controllers = [
             sb.instantiateViewControllerWithIdentifier("TableViewController"),
             createController(),
@@ -44,7 +45,8 @@ class ViewController: UIViewController {
             createController(),
             createController()
         ]
-        vc.pageIndex = 3
+//        vc.pageIndex = 3
+        vc.cursorMoveEffect = OOCursorLeftDockMoveEffect()
         vc.cursorColor = UIColor.blueColor()
         vc.titleSelectedColor = UIColor.blueColor()
         self.navigationController?.pushViewController(vc, animated: true)
