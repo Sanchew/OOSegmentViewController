@@ -109,8 +109,7 @@ public class OOCursorCenterMoveEffect : CursorMoveEffect {
 public class OOCursorLeftDockMoveEffect : CursorMoveEffect {
     
     public var leftMargin : CGFloat
-    var lastOffset = CGFloat(0)
-    init(leftMargin:CGFloat = 40) {
+    public init(leftMargin:CGFloat = 40) {
         self.leftMargin = leftMargin
     }
     
