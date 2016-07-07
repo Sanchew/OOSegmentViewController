@@ -90,7 +90,7 @@ public class OOSegmentNavigationBar : UIScrollView {
     }
     
     func layoutItems() {
-        var contentWidth = itemMargin + itemOffset
+        var contentWidth = itemOffset
         titles.enumerate().forEach {
             let item = titleItemMap[$1]
             let itemWidth = ceil(titleWidthAtFont(UIFont.systemFontOfSize(fontSize), index: $0))
@@ -103,7 +103,8 @@ public class OOSegmentNavigationBar : UIScrollView {
             }
             contentWidth += itemWidth + itemMargin
         }
-        contentWidth += itemOffset
+        contentWidth += itemOffset - itemMargin
+        
         contentSize.width = contentWidth
         contentView.frame.size.width = contentWidth
 //        contentView.frame.origin.x = contentWidth < CGRectGetWidth(self.frame) ? (CGRectGetWidth(self.frame) - contentWidth) / 2.0 : 0

@@ -53,8 +53,8 @@ public class OOCursorMoveEffect: CursorMoveEffect {
 //        effect.scroll(scrollView, navBar: navBar, cursor: cursor, fullWidth: fullWidth, xScale: xScale, correctXScale: correctXScale, computeWidth: computeWidth, leftXOffset: leftXOffset, centerXOffset: centerXOffset, finished: finished)
         cursor.frame.size.width = computeWidth
         cursor.center.x = centerXOffset
-        let minOffset = leftXOffset - navBar.itemMargin - navBar.itemOffset,
-            maxOffset = leftXOffset + computeWidth + navBar.itemMargin + navBar.itemOffset
+        let minOffset = leftXOffset - navBar.itemOffset,
+            maxOffset = leftXOffset + computeWidth + navBar.itemOffset
         if CGRectGetMaxX(navBar.bounds) < maxOffset {
             navBar.contentOffset.x += maxOffset - CGRectGetMaxX(navBar.bounds)
         } else if navBar.contentOffset.x > minOffset {
@@ -99,7 +99,7 @@ public class OOCursorCenterMoveEffect : CursorMoveEffect {
 //    }
     
     @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
-        let effect = OOCursorLeftDockMoveEffect(leftMargin: (fullWidth - computeWidth) / 2.0 - navBar.itemMargin)
+        let effect = OOCursorLeftDockMoveEffect(leftMargin: (fullWidth - computeWidth) / 2.0)
         effect.scroll(scrollView, navBar: navBar, cursor: cursor, fullWidth: fullWidth, xScale: xScale, correctXScale: correctXScale, computeWidth: computeWidth, leftXOffset: centerXOffset - computeWidth / 2.0, centerXOffset: centerXOffset, finished: finished)
     }
     
@@ -143,7 +143,7 @@ public class OOCursorLeftDockMoveEffect : CursorMoveEffect {
         cursor.frame.size.width = computeWidth
         cursor.frame.origin.x = leftXOffset
         if navBar.contentSize.width > fullWidth {
-            let targetX = leftXOffset - navBar.itemMargin - leftMargin
+            let targetX = leftXOffset - leftMargin
             if targetX <= navBar.contentSize.width - fullWidth && targetX >= 0 {
                 navBar.contentOffset.x = targetX
             }
