@@ -97,6 +97,11 @@ public class OOSegmentViewController : UIViewController {
         navBar.cursorColor = cursorColor
         navBar.fontSize = fontSize
         navBar.segmentViewController = self
+        if titles.count == 0 {
+            controllers.forEach {
+                titles.append($0.title ?? "")
+            }
+        }
         navBar.titles = titles
         navBar.itemMargin = titleMargin
         navBar.itemOffset = titleOffset
