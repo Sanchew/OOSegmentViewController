@@ -118,6 +118,10 @@ public class OOSegmentViewController : UIViewController {
         let direction : UIPageViewControllerNavigationDirection = index > pageIndex ? .Forward : .Reverse
         pendingIndex = index
         viewControllerWillShow()
+        if pageIndex == pendingIndex {
+            viewControllerDidShow()
+            return
+        }
         pageViewController.setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
                 self?.viewControllerDidShow()
