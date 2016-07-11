@@ -144,8 +144,14 @@ public class OOCursorLeftDockMoveEffect : CursorMoveEffect {
         cursor.frame.origin.x = leftXOffset
         if navBar.contentSize.width > fullWidth {
             let targetX = leftXOffset - leftMargin
-            if targetX <= navBar.contentSize.width - fullWidth && targetX >= 0 {
+            guard targetX >= 0 else {
+                return
+            }
+            let maxOffset = navBar.contentSize.width - fullWidth
+            if targetX <= maxOffset {
                 navBar.contentOffset.x = targetX
+            } else if navBar.contentOffset.x < maxOffset {
+                navBar.contentOffset.x = maxOffset
             }
         }
     }

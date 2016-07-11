@@ -45,6 +45,9 @@ class ViewController: UIViewController {
             createController(),
             createController()
         ]
+        vc.navBarHeight = 44
+        vc.cursorHeight = 4
+        vc.cursorBottomMargin = 0
 //        vc.pageIndex = 3
         vc.cursorMoveEffect = OOCursorLeftDockMoveEffect()
         vc.cursorColor = UIColor.blueColor()

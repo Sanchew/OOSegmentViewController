@@ -30,6 +30,8 @@ public class OOSegmentViewController : UIViewController {
     public var titleSelectedColor = UIColor.redColor()
     public var fontSize = CGFloat(15)
     public var cursorColor = UIColor.whiteColor()
+    public var cursorHeight = CGFloat(2)
+    public var cursorBottomMargin : CGFloat?
     public var navBarBackgroundColor = UIColor.whiteColor()
     public var titleMargin = CGFloat(8)
     public var titleOffset = CGFloat(0)
@@ -95,6 +97,8 @@ public class OOSegmentViewController : UIViewController {
         navBar.titleColor = titleColor
         navBar.titleSelectedColor = titleSelectedColor
         navBar.cursorColor = cursorColor
+        navBar.cursorHeight = cursorHeight
+        navBar.cursorBottomMargin = cursorBottomMargin
         navBar.fontSize = fontSize
         navBar.segmentViewController = self
         if titles.count == 0 {

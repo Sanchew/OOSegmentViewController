@@ -19,6 +19,8 @@ public class OOSegmentNavigationBar : UIScrollView {
     var titleColor : UIColor!
     var titleSelectedColor : UIColor!
     var fontSize : CGFloat!
+    var cursorBottomMargin : CGFloat?
+    var cursorHeight : CGFloat!
     public var itemMargin : CGFloat = 0
     public var itemOffset : CGFloat = 0
     
@@ -56,7 +58,11 @@ public class OOSegmentNavigationBar : UIScrollView {
         if contentView.frame == CGRectZero {
             contentView.frame.size.height = self.frame.size.height
             let height = CGRectGetHeight(self.frame)
-            cursor.frame = CGRectMake(0, height - 2 - (height-fontSize)/4, 0, 2)
+            if let margin = cursorBottomMargin {
+                cursor.frame = CGRectMake(0, height - cursorHeight - margin, 0, cursorHeight)
+            } else {
+                cursor.frame = CGRectMake(0, height - cursorHeight - (height-fontSize)/4, 0, cursorHeight)
+            }
             layoutItems()
         }
         
