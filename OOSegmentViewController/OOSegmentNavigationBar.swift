@@ -77,9 +77,14 @@ public class OOSegmentNavigationBar : UIScrollView {
     }
 
     func configItems() {
-        guard titleItemMap.count == 0 else {
+//        guard titleItemMap.count == 0 else {
+//            return
+//        }
+        guard let _ = titleColor,let _ = titleSelectedColor,let _ = fontSize else {
             return
         }
+        print("configItems")
+        titleItemMap.values.forEach { $0.removeFromSuperview() }
         titles.enumerate().forEach {
             let item = UIButton()
             item.tag = $0
@@ -92,10 +97,14 @@ public class OOSegmentNavigationBar : UIScrollView {
             contentView.addSubview(item)
             
         }
-//        layoutItems()
+        layoutItems()
     }
     
     func layoutItems() {
+        guard CGRectGetHeight(frame) > 0 else {
+            return
+        }
+        contentView.frame.origin.x  = 0
         var contentWidth = itemOffset
         titles.enumerate().forEach {
             let item = titleItemMap[$1]

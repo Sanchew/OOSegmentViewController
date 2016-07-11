@@ -18,7 +18,7 @@ class HomeViewController: OOSegmentViewController {
             "Two",
             "HHHHHH"
         ]
-        
+        cursorMoveEffect = OOCursorLeftDockMoveEffect()
         controllers = [
             createController(),
             createController(),
@@ -32,11 +32,16 @@ class HomeViewController: OOSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(action))
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(action(_:)))
     }
     
-    func action() {
-        moveToControllerAtIndex(2,animated: false)
+    func action(sender:UIButton) {
+//        moveToControllerAtIndex(2,animated: false)
+        let title = "what\(sender.tag)"
+        sender.tag += 1
+        titles += [title]
+        controllers += [createController()]
+        moveToControllerAtIndex(pageIndex)
     }
     
     

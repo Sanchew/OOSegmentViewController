@@ -30,7 +30,8 @@ class ViewController: UIViewController {
             "Live",
             "MissWWWWW",
             "GOHomeHHHH",
-            "TESTSSSSSS"
+            "TESTSSSSSS",
+            "TTT"
         ]
         let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         vc.titleOffset = 20

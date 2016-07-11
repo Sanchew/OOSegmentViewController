@@ -47,15 +47,20 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     var pendingIndex = 0
-    
+    private var autoFetchTitles = false
     public var titles = [String]() {
         didSet {
-//            print(titles)
+            navBar.titles = titles
         }
     }
     public var controllers = [UIViewController]() {
         didSet {
 //            print(controllers)
+            if autoFetchTitles {
+                titles = controllers.map {
+                    $0.title ?? ""
+                }
+            }
         }
     }
     
@@ -102,6 +107,7 @@ public class OOSegmentViewController : UIViewController {
         navBar.fontSize = fontSize
         navBar.segmentViewController = self
         if titles.count == 0 {
+            autoFetchTitles = true
             controllers.forEach {
                 titles.append($0.title ?? "")
             }
@@ -118,7 +124,9 @@ public class OOSegmentViewController : UIViewController {
     }
     
     public func moveToControllerAtIndex(index:Int, animated : Bool = true){
-        
+        guard index >= 0 && index < controllers.count else {
+            return
+        }
         let direction : UIPageViewControllerNavigationDirection = index > pageIndex ? .Forward : .Reverse
         pendingIndex = index
         viewControllerWillShow()
