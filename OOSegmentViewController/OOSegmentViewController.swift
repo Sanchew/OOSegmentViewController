@@ -171,17 +171,20 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     
-    public override func followScrollView(scrollView: UIScrollView) {
+    public override func followScrollView(scrollView: UIScrollView) -> UIViewAnimationTransition {
         
         if scrollView.tracking == true && abs(scrollView.contentOffset.y) >= navBarHeight && navBarHideAnimate == false {
             let up = (scrollView.contentOffset.y > lastContentOffset) ? true : false
             if up && self.navBarTopLayoutConstraint.constant == 0 && scrollView.contentOffset.y > 0 {
                 setNavBarHidden(true)
+                return .CurlUp
             } else if !up && self.navBarTopLayoutConstraint.constant == -navBarHeight {
                 setNavBarHidden(false)
+                return .CurlDown
             }
         }
         lastContentOffset = scrollView.contentOffset.y
+        return .None
     }
     
     func getFocusViewControllerIndex()->Int {
@@ -192,10 +195,12 @@ public class OOSegmentViewController : UIViewController {
 // XXX:
 extension UIViewController {
     
-    public func followScrollView(scrollView: UIScrollView) {
+    public func followScrollView(scrollView: UIScrollView) -> UIViewAnimationTransition {
         if let segment = self.parentViewController as? OOSegmentViewController {
             segment.followScrollView(scrollView)
         }
+        
+        return .None
     }
     
 }
