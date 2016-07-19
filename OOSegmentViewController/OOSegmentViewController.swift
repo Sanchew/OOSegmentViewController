@@ -155,7 +155,7 @@ public class OOSegmentViewController : UIViewController {
         delegate?.segmentViewController?(self, didShowViewController: (pageViewController.viewControllers?.last)!)
     }
     
-    func setNavBarHidden(hidden: Bool , animated : Bool = true) {
+    public func setNavBarHidden(hidden: Bool , animated : Bool = true) {
         guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
             return
         }
