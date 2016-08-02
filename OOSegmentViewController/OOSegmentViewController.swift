@@ -191,7 +191,8 @@ public class OOSegmentViewController : UIViewController {
             }
         }) { _ in
             self.navBarHideAnimate = false
-            self.animateQueue.removeAll()
+//            self.animateQueue.removeAll()
+            self.animateQueue.removeFirst(2)
         }
     }
     
