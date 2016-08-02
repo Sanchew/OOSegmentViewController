@@ -160,14 +160,38 @@ public class OOSegmentViewController : UIViewController {
             return
         }
         navBarHideAnimate = true
+        animateQueue += [hidden,animated]
+//        UIView.animateWithDuration(0.25, animations: { () -> Void in
+//            self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+//            if (animated) {
+//                self.view.layoutIfNeeded()
+//            }
+//        }) { _ in
+//            self.navBarHideAnimate = false
+//        }
+    }
+    var animateQueue = [Bool]() {
+        didSet {
+            if animateQueue.count % 2 == 0 {
+                performSelector(#selector(laterAnimate), withObject: nil, afterDelay: 0.21)
+            }
+        }
+    }
+    
+    func laterAnimate()
+    {
+        guard animateQueue.count % 2 == 0 && animateQueue.count > 0 else { return }
+        let hidden = animateQueue[0]
+        let animated = animateQueue[1]
         
-        UIView.animateWithDuration(0.25, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             if (animated) {
                 self.view.layoutIfNeeded()
             }
         }) { _ in
             self.navBarHideAnimate = false
+            self.animateQueue.removeAll()
         }
     }
     
