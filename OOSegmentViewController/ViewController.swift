@@ -37,8 +37,8 @@ class ViewController: UIViewController {
         vc.titleOffset = 20
         vc.titleMargin = 30
         vc.controllers = [
+            sb.instantiateViewControllerWithIdentifier("CollectionViewController"),
             sb.instantiateViewControllerWithIdentifier("TableViewController"),
-            createController(),
             createController(),
             createController(),
             createController(),

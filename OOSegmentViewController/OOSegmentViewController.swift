@@ -16,12 +16,17 @@ import UIKit
     
 }
 
+
+
 public class OOSegmentViewController : UIViewController {
     
     private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     private var navBar = OOSegmentNavigationBar()
     private var navBarHideAnimate = false
     private var lastContentOffset = CGFloat(0)
+    private var lastScrollDirection = UIAccessibilityScrollDirection.Up
+    private var scrollDistance = CGFloat(0)
+    
     private var navBarTopLayoutConstraint : NSLayoutConstraint!
     
     public var navBarHeight = CGFloat(40)
@@ -172,18 +177,29 @@ public class OOSegmentViewController : UIViewController {
     }
     
     public override func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
-        
-        if scrollView.tracking == true && abs(scrollView.contentOffset.y) >= navBarHeight && navBarHideAnimate == false {
-            let up = (scrollView.contentOffset.y > lastContentOffset) ? true : false
-            if up && self.navBarTopLayoutConstraint.constant == 0 && scrollView.contentOffset.y > 0 {
+        let contentOffsetY = scrollView.contentOffset.y
+        guard contentOffsetY >= 0 && contentOffsetY <= scrollView.contentSize.height - CGRectGetHeight(scrollView.bounds) else { return }
+        let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .Up : .Down
+        if direction == lastScrollDirection {
+            scrollDistance += scrollView.contentOffset.y - lastContentOffset
+        }else{
+            lastScrollDirection = direction
+            scrollDistance = 0
+        }
+        lastContentOffset = scrollView.contentOffset.y
+//        print("distance \(scrollDistance) \(contentOffsetY)  \(scrollView.contentSize.height)")
+        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+            
+            if direction == .Up && self.navBarTopLayoutConstraint.constant == 0 {
+                // 隐藏
                 setNavBarHidden(true)
                 navBarHideChangeHandler?(true)
-            } else if !up && self.navBarTopLayoutConstraint.constant == -navBarHeight {
+            } else if direction == .Down && self.navBarTopLayoutConstraint.constant == -navBarHeight {
+                // 显示
                 setNavBarHidden(false)
                 navBarHideChangeHandler?(false)
             }
         }
-        lastContentOffset = scrollView.contentOffset.y
     }
     
     func getFocusViewControllerIndex()->Int {
