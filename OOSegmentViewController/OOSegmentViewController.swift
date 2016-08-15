@@ -179,7 +179,7 @@ public class OOSegmentViewController : UIViewController {
     public override func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
         let contentOffsetY = scrollView.contentOffset.y,
             topInset = scrollView.contentInset.top,
-            buttomInset = scrollView.contentInset.bottom
+            buttomInset = 0 // scrollView.contentInset.bottom
         guard contentOffsetY >= 0 - topInset && contentOffsetY <= scrollView.contentSize.height + buttomInset - CGRectGetHeight(scrollView.bounds) else { return }
         let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .Up : .Down
         if direction == lastScrollDirection {
