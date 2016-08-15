@@ -190,7 +190,8 @@ public class OOSegmentViewController : UIViewController {
         }
         lastContentOffset = scrollView.contentOffset.y
 //        print("distance \(scrollDistance) \(contentOffsetY)  \(scrollView.contentSize.height)")
-        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+//        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+        if abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
             
             if direction == .Up && self.navBarTopLayoutConstraint.constant == 0 {
                 // 隐藏
