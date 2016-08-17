@@ -168,6 +168,11 @@ public class OOSegmentViewController : UIViewController {
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+            if 8 == NSProcessInfo().operatingSystemVersion.majorVersion {
+                var frame = self.pageViewController.view.subviews[0].frame
+                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
+                self.pageViewController.view.subviews[0].frame = frame
+            }
             if (animated) {
                 self.view.layoutIfNeeded()
             }
