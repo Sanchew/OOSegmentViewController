@@ -18,6 +18,15 @@ class CollectionCell: UICollectionViewCell {
 
 class CollectionView: UICollectionView {
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
+        let view = UIView(frame: CGRect(x: 0, y: -200, width: 414, height: 200))
+        view.backgroundColor = UIColor.redColor()
+        self.addSubview(view)
+    }
+    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        print("\(touches)       \(event)")
         super.touchesEnded(touches, withEvent: event)
@@ -63,7 +72,7 @@ class CollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 200
+        return 50
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

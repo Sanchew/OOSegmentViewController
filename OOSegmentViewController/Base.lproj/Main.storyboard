@@ -67,9 +67,10 @@
             <objects>
                 <collectionViewController storyboardIdentifier="CollectionViewController" id="JRg-YB-alH" customClass="CollectionViewController" customModule="OOSegmentViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="laS-Rq-OWG" customClass="CollectionView" customModule="OOSegmentViewController" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="200"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uDb-au-hVw">
                             <size key="itemSize" width="200" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -78,7 +79,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OOCollectionCell" id="s4V-AJ-9Et" customClass="CollectionCell" customModule="OOSegmentViewController" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                                <rect key="frame" x="87.5" y="0.0" width="200" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
@@ -103,6 +104,7 @@
                             <outlet property="delegate" destination="JRg-YB-alH" id="2vy-s0-5cu"/>
                         </connections>
                     </collectionView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5V-ac-pmM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

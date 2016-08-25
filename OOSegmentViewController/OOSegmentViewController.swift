@@ -124,6 +124,7 @@ public class OOSegmentViewController : UIViewController {
         
         if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
             scrollView.delegate = navBar
+            scrollView.scrollsToTop = false
         }
         
     }
@@ -184,7 +185,7 @@ public class OOSegmentViewController : UIViewController {
     public override func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
         let contentOffsetY = scrollView.contentOffset.y,
             topInset = scrollView.contentInset.top,
-            buttomInset = CGFloat(0) // scrollView.contentInset.bottom
+            buttomInset = scrollView.contentInset.bottom
         guard contentOffsetY >= 0 - topInset && contentOffsetY <= scrollView.contentSize.height + buttomInset - CGRectGetHeight(scrollView.bounds) else { return }
         let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .Up : .Down
         if direction == lastScrollDirection {
@@ -240,11 +241,8 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
         if completed {
             viewControllerDidShow()
         } else {
-            // XXX: 有一个回弹问题吧
             pendingIndex = pageIndex
         }
-//        pageViewController.view.userInteractionEnabled = true
-//        pendingIndex = -1
     }
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
