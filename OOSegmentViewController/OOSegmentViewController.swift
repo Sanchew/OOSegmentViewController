@@ -66,6 +66,9 @@ public class OOSegmentViewController : UIViewController {
                     $0.title ?? ""
                 }
             }
+            if let first = controllers.first {
+               pageViewController.setViewControllers([first], direction: .Forward, animated: false, completion: nil)
+            }
         }
     }
     
@@ -230,7 +233,7 @@ extension UIViewController {
 extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource {
     
     func nextViewController(viewController:UIViewController,combine: (Int,Int)->Int) -> UIViewController? {
-        let index = combine(controllers.indexOf(viewController) ?? 0,1)
+        let index = combine(controllers.indexOf(viewController)!,1)
         guard (0..<controllers.count).contains(index) else {
             return nil
         }
@@ -246,7 +249,7 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     }
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        pendingIndex = controllers.indexOf(pendingViewControllers.first!) ?? 0
+        pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
         viewControllerWillShow()
     }
     
