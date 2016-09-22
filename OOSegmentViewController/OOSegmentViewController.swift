@@ -246,7 +246,7 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     }
     
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        pendingIndex = controllers.indexOf(pendingViewControllers.first!)!
+        pendingIndex = controllers.indexOf(pendingViewControllers.first!) ?? 0
         viewControllerWillShow()
     }
     
