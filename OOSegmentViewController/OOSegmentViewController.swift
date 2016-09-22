@@ -55,19 +55,19 @@ public class OOSegmentViewController : UIViewController {
     private var autoFetchTitles = false
     public var titles = [String]() {
         didSet {
+            pageIndex = 0
             navBar.titles = titles
         }
     }
     public var controllers = [UIViewController]() {
         didSet {
-//            print(controllers)
+            if let first = controllers.first,vcs = pageViewController.viewControllers where !vcs.isEmpty {
+                pageViewController.setViewControllers([first], direction: .Forward, animated: false, completion: nil)
+            }
             if autoFetchTitles {
                 titles = controllers.map {
                     $0.title ?? ""
                 }
-            }
-            if let first = controllers.first {
-               pageViewController.setViewControllers([first], direction: .Forward, animated: false, completion: nil)
             }
         }
     }
