@@ -230,7 +230,7 @@ extension UIViewController {
 extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource {
     
     func nextViewController(viewController:UIViewController,combine: (Int,Int)->Int) -> UIViewController? {
-        let index = combine(controllers.indexOf(viewController)!,1)
+        let index = combine(controllers.indexOf(viewController) ?? 0,1)
         guard (0..<controllers.count).contains(index) else {
             return nil
         }
