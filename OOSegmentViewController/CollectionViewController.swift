@@ -21,7 +21,7 @@ class CollectionView: UICollectionView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
+        self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
         let view = UIView(frame: CGRect(x: 0, y: -200, width: 414, height: 200))
         view.backgroundColor = UIColor.redColor()
         self.addSubview(view)
@@ -123,7 +123,9 @@ class CollectionViewController: UICollectionViewController {
     */
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        parentViewController?.followScrollView(scrollView)
+        if let parent = parentViewController as? OOSegmentViewController {
+            parent.followScrollView(scrollView)
+        }
     }
 
 }

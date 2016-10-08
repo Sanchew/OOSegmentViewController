@@ -24,7 +24,7 @@ class TableViewController: UITableViewController {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         if let segment = self.parentViewController {
-            segment.followScrollView(scrollView)
+//            segment.followScrollView(scrollView)
         }
     }
     

@@ -44,6 +44,7 @@ class ViewController: UIViewController {
             createController(),
             createController(),
             createController(),
+            createController(),
             createController()
         ]
         vc.navBarHeight = 44

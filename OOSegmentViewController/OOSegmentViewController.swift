@@ -18,9 +18,9 @@ import UIKit
 
 
 
-public class OOSegmentViewController : UIViewController {
+public class OOSegmentViewController : UIPageViewController {
     
-    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+//    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     private var navBar = OOSegmentNavigationBar()
     private var navBarHideAnimate = false
     private var lastContentOffset = CGFloat(0)
@@ -30,7 +30,7 @@ public class OOSegmentViewController : UIViewController {
     private var navBarTopLayoutConstraint : NSLayoutConstraint!
     
     public var navBarHeight = CGFloat(40)
-    public var delegate : OOSegmentDelegate?
+    public var segmentDelegate : OOSegmentDelegate?
     public var titleColor = UIColor.blackColor()
     public var titleSelectedColor = UIColor.redColor()
     public var fontSize = CGFloat(15)
@@ -61,8 +61,8 @@ public class OOSegmentViewController : UIViewController {
     }
     public var controllers = [UIViewController]() {
         didSet {
-            if let first = controllers.first,vcs = pageViewController.viewControllers where !vcs.isEmpty {
-                pageViewController.setViewControllers([first], direction: .Forward, animated: false, completion: nil)
+            if let first = controllers.first,vcs = self.viewControllers where !vcs.isEmpty {
+                self.setViewControllers([first], direction: .Forward, animated: false, completion: nil)
             }
             if autoFetchTitles {
                 titles = controllers.map {
@@ -72,40 +72,76 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     
+    public init() {
+        super.init(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    }
+    
+    required public init?(coder: NSCoder) {
+//        super.init(coder: coder)
+        super.init(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         configUI()
     }
     
+    class PageControlView: UIView {
+        var view:UIView
+        init(view:UIView) {
+            self.view = view
+            super.init(frame:CGRectZero)
+            addSubview(view)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        var pageControl:UIPageControl? {
+            return view.valueForKey("_pageControl") as? UIPageControl
+        }
+        
+        var scrollView:UIScrollView {
+            return view.valueForKey("_scrollView") as! UIScrollView
+        }
+        
+    }
+    
     public func configUI(){
+        self.view.backgroundColor = UIColor.whiteColor()
         
         self.edgesForExtendedLayout = UIRectEdge.None
         
-        view.addSubview(navBar)
         
-        if view.backgroundColor == nil {
-            view.backgroundColor = UIColor.whiteColor()
+        if self.view.backgroundColor == nil {
+            self.view.backgroundColor = UIColor.whiteColor()
         }
         
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
+        delegate = self
+        dataSource = self
         
-        addChildViewController(pageViewController)
-        view.insertSubview(pageViewController.view, atIndex: 0)
-        pageViewController.didMoveToParentViewController(self)
+//        addChildViewController(pageViewController)
+//        view.insertSubview(pageViewController.view, atIndex: 0)
+//        pageViewController.didMoveToParentViewController(self)
+       
         
-        let views = ["navBar":navBar,"pageView":pageViewController.view]
+        
+        setViewControllers([controllers[pageIndex]], direction: .Forward, animated: false, completion: nil)
+        let views = ["navBar":navBar,"pageView":self.view]
+        let view = PageControlView(view: self.view)
+        self.view = view
+        view.addSubview(navBar)
+//        let views = ["navBar":navBar,"pageView":view]
         views.forEach {
             $1.translatesAutoresizingMaskIntoConstraints = false
         }
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
         let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
         navBarTopLayoutConstraint = constraints.first!
-        self.view.addConstraints(constraints)
+        view.addConstraints(constraints)
         
-        
-        pageViewController.setViewControllers([controllers[pageIndex]], direction: .Forward, animated: false, completion: nil)
         navBar.backgroundColor = navBarBackgroundColor
         navBar.titleColor = titleColor
         navBar.titleSelectedColor = titleSelectedColor
@@ -125,7 +161,7 @@ public class OOSegmentViewController : UIViewController {
         navBar.itemOffset = titleOffset
         navBar.moveEffect = cursorMoveEffect
         
-        if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
+        if let scrollView = self.valueForKey("_scrollView") as? UIScrollView {
             scrollView.delegate = navBar
             scrollView.scrollsToTop = false
         }
@@ -143,7 +179,7 @@ public class OOSegmentViewController : UIViewController {
             viewControllerDidShow()
             return
         }
-        pageViewController.setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
+        setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
                 self?.viewControllerDidShow()
 //                self?.pendingIndex = -1
@@ -153,7 +189,7 @@ public class OOSegmentViewController : UIViewController {
     
     func viewControllerWillShow() {
         
-        delegate?.segmentViewController?(self, willShowViewController: (pageViewController.viewControllers?.last)!)
+        segmentDelegate?.segmentViewController?(self, willShowViewController: (viewControllers?.last)!)
     }
     
     func viewControllerDidShow() {
@@ -161,7 +197,7 @@ public class OOSegmentViewController : UIViewController {
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
         setNavBarHidden(false,animated:false)
-        delegate?.segmentViewController?(self, didShowViewController: (pageViewController.viewControllers?.last)!)
+        segmentDelegate?.segmentViewController?(self, didShowViewController: (viewControllers?.last)!)
     }
     
     public func setNavBarHidden(hidden: Bool , animated : Bool = true) {
@@ -173,9 +209,9 @@ public class OOSegmentViewController : UIViewController {
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             if 8 == NSProcessInfo().operatingSystemVersion.majorVersion {
-                var frame = self.pageViewController.view.subviews[0].frame
+                var frame = self.view.subviews[0].frame
                 frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
-                self.pageViewController.view.subviews[0].frame = frame
+                self.view.subviews[0].frame = frame
             }
             if (animated) {
                 self.view.layoutIfNeeded()
@@ -185,7 +221,7 @@ public class OOSegmentViewController : UIViewController {
         }
     }
     
-    public override func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
+    public func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
         let contentOffsetY = scrollView.contentOffset.y,
             topInset = scrollView.contentInset.top,
             buttomInset = scrollView.contentInset.bottom
@@ -215,19 +251,8 @@ public class OOSegmentViewController : UIViewController {
     }
     
     func getFocusViewControllerIndex()->Int {
-        return controllers.indexOf((pageViewController.viewControllers?.last)!)!
+        return controllers.indexOf((viewControllers?.last)!)!
     }
-    
-}
-// XXX:
-extension UIViewController {
-    
-    public func followScrollView(scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
-        if let segment = self.parentViewController as? OOSegmentViewController {
-            segment.followScrollView(scrollView,navBarHideChangeHandler: navBarHideChangeHandler)
-        }
-    }
-    
 }
 
 extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource {

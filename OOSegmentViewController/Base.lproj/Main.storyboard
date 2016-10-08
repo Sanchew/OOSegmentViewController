@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuU-sP-2aK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuU-sP-2aK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -141,7 +141,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="xdc-Tb-0Rg"/>
-                        <segue destination="pGd-rP-cMr" kind="relationship" relationship="viewControllers" id="hSt-6s-QsS"/>
+                        <segue destination="Kce-4F-wG9" kind="relationship" relationship="viewControllers" id="4hn-fo-IGn"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZS-KF-8O2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,23 +149,14 @@
             <point key="canvasLocation" x="1256" y="311"/>
         </scene>
         <!--Item-->
-        <scene sceneID="5LE-bp-JiS">
+        <scene sceneID="SN1-fK-3S8">
             <objects>
-                <viewController id="pGd-rP-cMr" customClass="HomeViewController" customModule="OOSegmentViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="V5Y-FU-hcn"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cmd-Y7-rar"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WRn-Uy-FPi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="gNQ-YB-xMd"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9xJ-de-3zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Kce-4F-wG9" customClass="HomeViewController" customModule="OOSegmentViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="CSZ-Fa-hOM"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5I6-1A-ugx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1158" y="1046"/>
+            <point key="canvasLocation" x="1522" y="1478"/>
         </scene>
     </scenes>
 </document>

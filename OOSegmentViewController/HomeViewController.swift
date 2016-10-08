@@ -8,10 +8,11 @@
 
 import UIKit
 
-class HomeViewController: OOSegmentViewController {
+class HomeViewController: OOSegmentViewController{
 
     
     required init?(coder aDecoder: NSCoder) {
+        print(aDecoder)
         super.init(coder: aDecoder)
         titles = [
             "One",
