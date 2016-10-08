@@ -25,7 +25,7 @@ class HomeViewController: OOSegmentViewController{
             createController(),
             createController()
         ]
-        cursorColor = UIColor.blackColor()
+        cursorColor = UIColor.black
         titleMargin = 30
         pageIndex = 2
     }
@@ -33,10 +33,10 @@ class HomeViewController: OOSegmentViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(action(_:)))
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(action(_:)))
     }
     
-    func action(sender:UIButton) {
+    func action(_ sender:UIButton) {
 //        moveToControllerAtIndex(2,animated: false)
         let title = "what\(sender.tag)"
         sender.tag += 1
@@ -48,7 +48,7 @@ class HomeViewController: OOSegmentViewController{
     
     func createController() -> UIViewController {
         let vc = UIViewController()
-        vc.view.backgroundColor = UIColor(red: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), green: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), blue: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), alpha: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)))
+        //vc.view.backgroundColor = UIColor(red: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), green: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), blue: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), alpha: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)))
         return vc
     }
 

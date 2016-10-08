@@ -12,23 +12,23 @@ class TableViewController: UITableViewController {
 
     
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")!
-        cell.textLabel?.text = "Index \(indexPath.row)"
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
+        cell.textLabel?.text = "Index \((indexPath as NSIndexPath).row)"
         return cell
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let segment = self.parentViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let segment = self.parent {
 //            segment.followScrollView(scrollView)
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath)
     }
 }

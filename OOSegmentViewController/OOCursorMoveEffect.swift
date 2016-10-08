@@ -9,12 +9,12 @@
 import UIKit
 
 @objc public protocol CursorMoveEffect {
-    optional func scroll(scrollView:UIScrollView,navBar:OOSegmentNavigationBar,cursor:UIView,newItem:UIButton,oldItem:UIButton);
-    optional func scroll(scrollView:UIScrollView,navBar:OOSegmentNavigationBar,cursor:UIView,fullWidth:CGFloat,xScale:CGFloat,correctXScale:CGFloat,computeWidth:CGFloat,leftXOffset:CGFloat,centerXOffset:CGFloat,finished:Bool);
+    @objc optional func scroll(_ scrollView:UIScrollView,navBar:OOSegmentNavigationBar,cursor:UIView,newItem:UIButton,oldItem:UIButton);
+    @objc optional func scroll(_ scrollView:UIScrollView,navBar:OOSegmentNavigationBar,cursor:UIView,fullWidth:CGFloat,xScale:CGFloat,correctXScale:CGFloat,computeWidth:CGFloat,leftXOffset:CGFloat,centerXOffset:CGFloat,finished:Bool);
 }
 
 
-public class OOCursorMoveEffect: CursorMoveEffect {
+open class OOCursorMoveEffect: CursorMoveEffect {
 
 //    @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, newItem: UIButton, oldItem: UIButton) {
 //        let fullWidth = CGRectGetWidth(scrollView.frame)
@@ -47,7 +47,7 @@ public class OOCursorMoveEffect: CursorMoveEffect {
 //        }
 //    }
     
-    @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
+    @objc open func scroll(_ scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
 //        let maxMargin = fullWidth - computeWidth - navBar.itemMargin - navBar.itemOffset
 //        let effect = OOCursorLeftDockMoveEffect(leftMargin: leftXOffset >= maxMargin ? maxMargin : leftXOffset )
 //        effect.scroll(scrollView, navBar: navBar, cursor: cursor, fullWidth: fullWidth, xScale: xScale, correctXScale: correctXScale, computeWidth: computeWidth, leftXOffset: leftXOffset, centerXOffset: centerXOffset, finished: finished)
@@ -55,8 +55,8 @@ public class OOCursorMoveEffect: CursorMoveEffect {
         cursor.center.x = centerXOffset
         let minOffset = leftXOffset - navBar.itemOffset,
             maxOffset = leftXOffset + computeWidth + navBar.itemOffset
-        if CGRectGetMaxX(navBar.bounds) < maxOffset {
-            navBar.contentOffset.x += maxOffset - CGRectGetMaxX(navBar.bounds)
+        if navBar.bounds.maxX < maxOffset {
+            navBar.contentOffset.x += maxOffset - navBar.bounds.maxX
         } else if navBar.contentOffset.x > minOffset {
             navBar.contentOffset.x = minOffset
         }
@@ -65,7 +65,7 @@ public class OOCursorMoveEffect: CursorMoveEffect {
     
 }
 
-public class OOCursorCenterMoveEffect : CursorMoveEffect {
+open class OOCursorCenterMoveEffect : CursorMoveEffect {
 //    
 //    @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, newItem: UIButton, oldItem: UIButton) {
 //        let fullWidth = CGRectGetWidth(scrollView.frame)
@@ -98,7 +98,7 @@ public class OOCursorCenterMoveEffect : CursorMoveEffect {
 //        }
 //    }
     
-    @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
+    @objc open func scroll(_ scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
         let effect = OOCursorLeftDockMoveEffect(leftMargin: (fullWidth - computeWidth) / 2.0)
         effect.scroll(scrollView, navBar: navBar, cursor: cursor, fullWidth: fullWidth, xScale: xScale, correctXScale: correctXScale, computeWidth: computeWidth, leftXOffset: centerXOffset - computeWidth / 2.0, centerXOffset: centerXOffset, finished: finished)
     }
@@ -106,9 +106,9 @@ public class OOCursorCenterMoveEffect : CursorMoveEffect {
 }
 
 
-public class OOCursorLeftDockMoveEffect : CursorMoveEffect {
+open class OOCursorLeftDockMoveEffect : CursorMoveEffect {
     
-    public var leftMargin : CGFloat
+    open var leftMargin : CGFloat
     public init(leftMargin:CGFloat = 40) {
         self.leftMargin = leftMargin
     }
@@ -139,7 +139,7 @@ public class OOCursorLeftDockMoveEffect : CursorMoveEffect {
 //        
 //    }
     
-    @objc public func scroll(scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
+    @objc open func scroll(_ scrollView: UIScrollView, navBar: OOSegmentNavigationBar, cursor: UIView, fullWidth: CGFloat, xScale: CGFloat, correctXScale: CGFloat, computeWidth: CGFloat, leftXOffset: CGFloat, centerXOffset: CGFloat, finished: Bool) {
         cursor.frame.size.width = computeWidth
         cursor.frame.origin.x = leftXOffset
         if navBar.contentSize.width > fullWidth {

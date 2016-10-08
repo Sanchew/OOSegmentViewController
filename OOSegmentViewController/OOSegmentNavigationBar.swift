@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class OOSegmentNavigationBar : UIScrollView {
+open class OOSegmentNavigationBar : UIScrollView {
 
     var titles = [String]() {
         didSet {
@@ -21,18 +21,18 @@ public class OOSegmentNavigationBar : UIScrollView {
     var fontSize : CGFloat!
     var cursorBottomMargin : CGFloat?
     var cursorHeight : CGFloat!
-    public var itemMargin : CGFloat = 0
-    public var itemOffset : CGFloat = 0
+    open var itemMargin : CGFloat = 0
+    open var itemOffset : CGFloat = 0
     
     var segmentViewController : OOSegmentViewController?
     
-    private var titleItemMap = [String:UIButton]()
-    private var selectedItem : UIButton!
+    fileprivate var titleItemMap = [String:UIButton]()
+    fileprivate var selectedItem : UIButton!
     
     var moveEffect : CursorMoveEffect!
-    private var contentView = UIView(frame: CGRectZero)
+    fileprivate var contentView = UIView(frame: CGRect.zero)
 //    private var lastContentOffset = CGFloat(0)
-    private var cursor = UIView(frame: CGRectMake(0,0,0,2))
+    fileprivate var cursor = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 2))
     var cursorColor : UIColor! {
         didSet {
             cursor.backgroundColor = cursorColor
@@ -40,7 +40,7 @@ public class OOSegmentNavigationBar : UIScrollView {
     }
     
     init(){
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         configUI()
     }
     
@@ -53,15 +53,15 @@ public class OOSegmentNavigationBar : UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
-        if contentView.frame == CGRectZero {
+        if contentView.frame == CGRect.zero {
             contentView.frame.size.height = self.frame.size.height
-            let height = CGRectGetHeight(self.frame)
+            let height = self.frame.height
             if let margin = cursorBottomMargin {
-                cursor.frame = CGRectMake(0, height - cursorHeight - margin, 0, cursorHeight)
+                cursor.frame = CGRect(x: 0, y: height - cursorHeight - margin, width: 0, height: cursorHeight)
             } else {
-                cursor.frame = CGRectMake(0, height - cursorHeight - (height-fontSize)/4, 0, cursorHeight)
+                cursor.frame = CGRect(x: 0, y: height - cursorHeight - (height-fontSize)/4, width: 0, height: cursorHeight)
             }
             layoutItems()
         }
@@ -85,14 +85,14 @@ public class OOSegmentNavigationBar : UIScrollView {
         }
         print("configItems")
         titleItemMap.values.forEach { $0.removeFromSuperview() }
-        titles.enumerate().forEach {
+        titles.enumerated().forEach {
             let item = UIButton()
             item.tag = $0
-            item.setTitle($1, forState: .Normal)
-            item.setTitleColor(titleColor, forState: .Normal)
-            item.setTitleColor(titleSelectedColor, forState: .Selected)
-            item.titleLabel?.font = UIFont.systemFontOfSize(fontSize)
-            item.addTarget(self, action: #selector(itemClick(_:)), forControlEvents: .TouchUpInside)
+            item.setTitle($1, for: UIControlState())
+            item.setTitleColor(titleColor, for: UIControlState())
+            item.setTitleColor(titleSelectedColor, for: .selected)
+            item.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+            item.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
             titleItemMap[$1] = item
             contentView.addSubview(item)
             
@@ -101,19 +101,19 @@ public class OOSegmentNavigationBar : UIScrollView {
     }
     
     func layoutItems() {
-        guard CGRectGetHeight(frame) > 0 else {
+        guard frame.height > 0 else {
             return
         }
         contentView.frame.origin.x  = 0
         var contentWidth = itemOffset
-        titles.enumerate().forEach {
+        titles.enumerated().forEach {
             let item = titleItemMap[$1]
-            let itemWidth = ceil(titleWidthAtFont(UIFont.systemFontOfSize(fontSize), index: $0))
-            item?.frame = CGRectMake(contentWidth, 0, itemWidth, CGRectGetHeight(self.frame))
+            let itemWidth = ceil(titleWidthAtFont(UIFont.systemFont(ofSize: fontSize), index: $0))
+            item?.frame = CGRect(x: contentWidth, y: 0, width: itemWidth, height: self.frame.height)
             if $0 == segmentViewController?.pageIndex ?? 0 {
                 cursor.frame.size.width = itemWidth + 4
                 cursor.frame.origin.x = contentWidth - 2
-                item?.selected = true
+                item?.isSelected = true
                 selectedItem = item
             }
             contentWidth += itemWidth + itemMargin
@@ -123,24 +123,24 @@ public class OOSegmentNavigationBar : UIScrollView {
         contentSize.width = contentWidth
         contentView.frame.size.width = contentWidth
 //        contentView.frame.origin.x = contentWidth < CGRectGetWidth(self.frame) ? (CGRectGetWidth(self.frame) - contentWidth) / 2.0 : 0
-        if contentWidth < CGRectGetWidth(self.frame) {
-            contentView.frame.origin.x = (CGRectGetWidth(self.frame) - contentWidth) / 2.0
+        if contentWidth < self.frame.width {
+            contentView.frame.origin.x = (self.frame.width - contentWidth) / 2.0
         }
     }
     
-    func itemClick(sender:UIButton) {
+    func itemClick(_ sender:UIButton) {
         segmentViewController?.moveToControllerAtIndex(sender.tag)
     }
     
-    func titleWidthAtFont(font:UIFont,index:Int) -> CGFloat {
-        return titles[index].boundingRectWithSize(CGSize(width: CGFloat.max, height: font.lineHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size.width + 4
+    func titleWidthAtFont(_ font:UIFont,index:Int) -> CGFloat {
+        return titles[index].boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: font.lineHeight), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size.width + 4
     }
     
-    func updateSelectItem(newIndex: Int) {
+    func updateSelectItem(_ newIndex: Int) {
 //        if let pageIndex = segmentViewController?.pendingIndex {
-            selectedItem.selected = false
+            selectedItem.isSelected = false
             selectedItem = titleItemMap[titles[newIndex]]
-            selectedItem.selected = true
+            selectedItem.isSelected = true
 //        }
     }
     
@@ -151,12 +151,12 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
     
     
     // XXX: 这还是有点小问题  当用户从最右开始拖动 cursor 会有跳动
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print(scrollView.contentOffset.x)
         guard let segmentViewController = segmentViewController else {
             return
         }
-        let fullWidth = CGRectGetWidth(segmentViewController.view.frame)
+        let fullWidth = segmentViewController.view.frame.width
         // view移动完后系统会重新设置当前view的位置
         if scrollView.contentOffset.x == fullWidth {
             return
@@ -183,7 +183,7 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
             
         }
         
-        let xScale = scrollView.contentOffset.x % fullWidth / fullWidth
+        let xScale = scrollView.contentOffset.x.truncatingRemainder(dividingBy: fullWidth) / fullWidth
         
         let indicatorWidth = button.frame.size.width // titleWidthAtFont(titleFont, index: index)
         let oldWidth = oldButton.frame.size.width // titleWidthAtFont(titleFont, index: oldIndex)

@@ -23,13 +23,13 @@ class CollectionView: UICollectionView {
         super.awakeFromNib()
         self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
         let view = UIView(frame: CGRect(x: 0, y: -200, width: 414, height: 200))
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.red
         self.addSubview(view)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        print("\(touches)       \(event)")
-        super.touchesEnded(touches, withEvent: event)
+        super.touchesEnded(touches, with: event)
     }
 }
 
@@ -42,7 +42,7 @@ class CollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -64,33 +64,33 @@ class CollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return 50
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OOCollectionCell", forIndexPath: indexPath) as! CollectionCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OOCollectionCell", for: indexPath) as! CollectionCell
     
         // Configure the cell
-        cell.title.text = "Index \(indexPath.item)"
+        cell.title.text = "Index \((indexPath as NSIndexPath).item)"
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath)")
     }
     // MARK: UICollectionViewDelegate
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("\(touches)       \(event)")
-        super.touchesEnded(touches, withEvent: event)
+        super.touchesEnded(touches, with: event)
     }
     
     /*
@@ -122,8 +122,8 @@ class CollectionViewController: UICollectionViewController {
     }
     */
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let parent = parentViewController as? OOSegmentViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let parent = parent as? OOSegmentViewController {
             parent.followScrollView(scrollView)
         }
     }
