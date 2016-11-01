@@ -15,18 +15,20 @@ class HomeViewController: OOSegmentViewController{
         print(aDecoder)
         super.init(coder: aDecoder)
         titles = [
-            "One",
-            "Two",
-            "HHHHHH"
+            "Unused",
+            "Expired",
+            "Used",
+            "Coupon Card"
         ]
         cursorMoveEffect = OOCursorLeftDockMoveEffect()
         controllers = [
             createController(),
             createController(),
+            createController(),
             createController()
         ]
         cursorColor = UIColor.blackColor()
-        titleMargin = 30
+        titleMargin = 50
         pageIndex = 2
     }
     

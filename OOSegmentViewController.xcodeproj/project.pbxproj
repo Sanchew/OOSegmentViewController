@@ -12,8 +12,6 @@
 		9B05AA391D2115D5000A1611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B05AA371D2115D5000A1611 /* Main.storyboard */; };
 		9B05AA3B1D2115D5000A1611 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B05AA3A1D2115D5000A1611 /* Assets.xcassets */; };
 		9B05AA3E1D2115D5000A1611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B05AA3C1D2115D5000A1611 /* LaunchScreen.storyboard */; };
-		9B05AA491D2115D5000A1611 /* OOSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA481D2115D5000A1611 /* OOSegmentViewControllerTests.swift */; };
-		9B05AA541D2115D5000A1611 /* OOSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA531D2115D5000A1611 /* OOSegmentViewControllerUITests.swift */; };
 		9B05AA621D21163D000A1611 /* OOSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */; };
 		9B05AA641D2117DC000A1611 /* OOSegmentNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05AA631D2117DC000A1611 /* OOSegmentNavigationBar.swift */; };
 		9B43BE311D228DA300D97C9A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43BE301D228DA300D97C9A /* HomeViewController.swift */; };
@@ -21,23 +19,6 @@
 		9BC0E39A1D2CF95300072C35 /* OOCursorMoveEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC0E3991D2CF95300072C35 /* OOCursorMoveEffect.swift */; };
 		9BC567E21D51D4F8006597CB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC567E11D51D4F8006597CB /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9B05AA451D2115D5000A1611 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9B05AA281D2115D5000A1611 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B05AA2F1D2115D5000A1611;
-			remoteInfo = OOSegmentViewController;
-		};
-		9B05AA501D2115D5000A1611 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9B05AA281D2115D5000A1611 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B05AA2F1D2115D5000A1611;
-			remoteInfo = OOSegmentViewController;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9B05AA301D2115D5000A1611 /* OOSegmentViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OOSegmentViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,10 +28,8 @@
 		9B05AA3A1D2115D5000A1611 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B05AA3D1D2115D5000A1611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B05AA3F1D2115D5000A1611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B05AA441D2115D5000A1611 /* OOSegmentViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OOSegmentViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B05AA481D2115D5000A1611 /* OOSegmentViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOSegmentViewControllerTests.swift; sourceTree = "<group>"; };
 		9B05AA4A1D2115D5000A1611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B05AA4F1D2115D5000A1611 /* OOSegmentViewControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OOSegmentViewControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B05AA531D2115D5000A1611 /* OOSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
 		9B05AA551D2115D5000A1611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B05AA611D21163D000A1611 /* OOSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOSegmentViewController.swift; sourceTree = "<group>"; };
@@ -63,20 +42,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		9B05AA2D1D2115D5000A1611 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B05AA411D2115D5000A1611 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B05AA4C1D2115D5000A1611 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -100,8 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				9B05AA301D2115D5000A1611 /* OOSegmentViewController.app */,
-				9B05AA441D2115D5000A1611 /* OOSegmentViewControllerTests.xctest */,
-				9B05AA4F1D2115D5000A1611 /* OOSegmentViewControllerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,42 +126,6 @@
 			productReference = 9B05AA301D2115D5000A1611 /* OOSegmentViewController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9B05AA431D2115D5000A1611 /* OOSegmentViewControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9B05AA5B1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerTests" */;
-			buildPhases = (
-				9B05AA401D2115D5000A1611 /* Sources */,
-				9B05AA411D2115D5000A1611 /* Frameworks */,
-				9B05AA421D2115D5000A1611 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9B05AA461D2115D5000A1611 /* PBXTargetDependency */,
-			);
-			name = OOSegmentViewControllerTests;
-			productName = OOSegmentViewControllerTests;
-			productReference = 9B05AA441D2115D5000A1611 /* OOSegmentViewControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		9B05AA4E1D2115D5000A1611 /* OOSegmentViewControllerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9B05AA5E1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerUITests" */;
-			buildPhases = (
-				9B05AA4B1D2115D5000A1611 /* Sources */,
-				9B05AA4C1D2115D5000A1611 /* Frameworks */,
-				9B05AA4D1D2115D5000A1611 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9B05AA511D2115D5000A1611 /* PBXTargetDependency */,
-			);
-			name = OOSegmentViewControllerUITests;
-			productName = OOSegmentViewControllerUITests;
-			productReference = 9B05AA4F1D2115D5000A1611 /* OOSegmentViewControllerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,14 +139,6 @@
 					9B05AA2F1D2115D5000A1611 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
-					};
-					9B05AA431D2115D5000A1611 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 9B05AA2F1D2115D5000A1611;
-					};
-					9B05AA4E1D2115D5000A1611 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 9B05AA2F1D2115D5000A1611;
 					};
 				};
 			};
@@ -237,8 +156,6 @@
 			projectRoot = "";
 			targets = (
 				9B05AA2F1D2115D5000A1611 /* OOSegmentViewController */,
-				9B05AA431D2115D5000A1611 /* OOSegmentViewControllerTests */,
-				9B05AA4E1D2115D5000A1611 /* OOSegmentViewControllerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -251,20 +168,6 @@
 				9B05AA3E1D2115D5000A1611 /* LaunchScreen.storyboard in Resources */,
 				9B05AA3B1D2115D5000A1611 /* Assets.xcassets in Resources */,
 				9B05AA391D2115D5000A1611 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B05AA421D2115D5000A1611 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B05AA4D1D2115D5000A1611 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,36 +189,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B05AA401D2115D5000A1611 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B05AA491D2115D5000A1611 /* OOSegmentViewControllerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B05AA4B1D2115D5000A1611 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B05AA541D2115D5000A1611 /* OOSegmentViewControllerUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9B05AA461D2115D5000A1611 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B05AA2F1D2115D5000A1611 /* OOSegmentViewController */;
-			targetProxy = 9B05AA451D2115D5000A1611 /* PBXContainerItemProxy */;
-		};
-		9B05AA511D2115D5000A1611 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B05AA2F1D2115D5000A1611 /* OOSegmentViewController */;
-			targetProxy = 9B05AA501D2115D5000A1611 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9B05AA371D2115D5000A1611 /* Main.storyboard */ = {
@@ -446,52 +320,6 @@
 			};
 			name = Release;
 		};
-		9B05AA5C1D2115D5000A1611 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = OOSegmentViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OOSegmentViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OOSegmentViewController.app/OOSegmentViewController";
-			};
-			name = Debug;
-		};
-		9B05AA5D1D2115D5000A1611 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = OOSegmentViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OOSegmentViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OOSegmentViewController.app/OOSegmentViewController";
-			};
-			name = Release;
-		};
-		9B05AA5F1D2115D5000A1611 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = OOSegmentViewControllerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OOSegmentViewControllerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = OOSegmentViewController;
-			};
-			name = Debug;
-		};
-		9B05AA601D2115D5000A1611 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = OOSegmentViewControllerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OOSegmentViewControllerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = OOSegmentViewController;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -509,24 +337,6 @@
 			buildConfigurations = (
 				9B05AA591D2115D5000A1611 /* Debug */,
 				9B05AA5A1D2115D5000A1611 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9B05AA5B1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9B05AA5C1D2115D5000A1611 /* Debug */,
-				9B05AA5D1D2115D5000A1611 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9B05AA5E1D2115D5000A1611 /* Build configuration list for PBXNativeTarget "OOSegmentViewControllerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9B05AA5F1D2115D5000A1611 /* Debug */,
-				9B05AA601D2115D5000A1611 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

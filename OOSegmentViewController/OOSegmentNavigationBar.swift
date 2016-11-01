@@ -10,17 +10,17 @@ import UIKit
 
 public class OOSegmentNavigationBar : UIScrollView {
 
-    var titles = [String]() {
+    public var titles = [String]() {
         didSet {
             configItems()
         }
     }
     
-    var titleColor : UIColor!
-    var titleSelectedColor : UIColor!
-    var fontSize : CGFloat!
-    var cursorBottomMargin : CGFloat?
-    var cursorHeight : CGFloat!
+    public var titleColor : UIColor!
+    public var titleSelectedColor : UIColor!
+    public var fontSize : CGFloat!
+    public var cursorBottomMargin : CGFloat?
+    public var cursorHeight : CGFloat!
     public var itemMargin : CGFloat = 0
     public var itemOffset : CGFloat = 0
     
