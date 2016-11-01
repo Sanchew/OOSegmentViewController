@@ -30,9 +30,9 @@ public class OOSegmentNavigationBar : UIScrollView {
     private var selectedItem : UIButton!
     
     var moveEffect : CursorMoveEffect!
-    private var contentView = UIView(frame: CGRectZero)
+    public var contentView = UIView(frame: CGRectZero)
 //    private var lastContentOffset = CGFloat(0)
-    private var cursor = UIView(frame: CGRectMake(0,0,0,2))
+    public var cursor = UIView(frame: CGRectMake(0,0,0,2))
     var cursorColor : UIColor! {
         didSet {
             cursor.backgroundColor = cursorColor
@@ -76,14 +76,14 @@ public class OOSegmentNavigationBar : UIScrollView {
         contentView.addSubview(cursor)
     }
 
-    func configItems() {
+    public func configItems() {
 //        guard titleItemMap.count == 0 else {
 //            return
 //        }
         guard let _ = titleColor,let _ = titleSelectedColor,let _ = fontSize else {
             return
         }
-        print("configItems")
+//        print("configItems")
         titleItemMap.values.forEach { $0.removeFromSuperview() }
         titles.enumerate().forEach {
             let item = UIButton()
@@ -100,7 +100,7 @@ public class OOSegmentNavigationBar : UIScrollView {
         layoutItems()
     }
     
-    func layoutItems() {
+    public func layoutItems() {
         guard CGRectGetHeight(frame) > 0 else {
             return
         }
@@ -109,7 +109,7 @@ public class OOSegmentNavigationBar : UIScrollView {
         titles.enumerate().forEach {
             let item = titleItemMap[$1]
             let itemWidth = ceil(titleWidthAtFont(UIFont.systemFontOfSize(fontSize), index: $0))
-            item?.frame = CGRectMake(contentWidth, 0, itemWidth, CGRectGetHeight(self.frame))
+            item?.frame = CGRectMake(contentWidth, 0, itemWidth, CGRectGetHeight(self.contentView.frame))
             if $0 == segmentViewController?.pageIndex ?? 0 {
                 cursor.frame.size.width = itemWidth + 4
                 cursor.frame.origin.x = contentWidth - 2

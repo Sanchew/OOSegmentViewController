@@ -21,7 +21,7 @@ import UIKit
 public class OOSegmentViewController : UIPageViewController {
     
 //    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-    private var navBar = OOSegmentNavigationBar()
+    public var navBar = OOSegmentNavigationBar()
     private var navBarHideAnimate = false
     private var lastContentOffset = CGFloat(0)
     private var lastScrollDirection = UIAccessibilityScrollDirection.Up
@@ -125,8 +125,6 @@ public class OOSegmentViewController : UIPageViewController {
 //        view.insertSubview(pageViewController.view, atIndex: 0)
 //        pageViewController.didMoveToParentViewController(self)
        
-        
-        
         setViewControllers([controllers[pageIndex]], direction: .Forward, animated: false, completion: nil)
         let views = ["navBar":navBar,"pageView":self.view]
         let view = PageControlView(view: self.view)
