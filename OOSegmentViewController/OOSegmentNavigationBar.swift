@@ -39,12 +39,12 @@ public class OOSegmentNavigationBar : UIScrollView {
         }
     }
     
-    init(){
+    public init(){
         super.init(frame: CGRectZero)
         configUI()
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
     }
