@@ -68,7 +68,7 @@ public class OOSegmentNavigationBar : UIScrollView {
         
     }
     
-    func configUI() {
+    public func configUI() {
         self.showsHorizontalScrollIndicator = false
         
         addSubview(contentView)
