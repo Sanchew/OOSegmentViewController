@@ -126,19 +126,6 @@ public class OOSegmentViewController : UIPageViewController {
 //        pageViewController.didMoveToParentViewController(self)
        
         setViewControllers([controllers[pageIndex]], direction: .Forward, animated: false, completion: nil)
-        let views = ["navBar":navBar,"pageView":self.view]
-        let view = PageControlView(view: self.view)
-        self.view = view
-        view.addSubview(navBar)
-//        let views = ["navBar":navBar,"pageView":view]
-        views.forEach {
-            $1.translatesAutoresizingMaskIntoConstraints = false
-        }
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
-        navBarTopLayoutConstraint = constraints.first!
-        view.addConstraints(constraints)
         
         navBar.backgroundColor = navBarBackgroundColor
         navBar.titleColor = titleColor
@@ -164,6 +151,25 @@ public class OOSegmentViewController : UIPageViewController {
             scrollView.scrollsToTop = false
         }
         
+        configConstraints()
+        
+    }
+    
+    public func configConstraints() {
+        let views = ["navBar":navBar,"pageView":self.view]
+        let view = PageControlView(view: self.view)
+        self.view = view
+        view.addSubview(navBar)
+        //        let views = ["navBar":navBar,"pageView":view]
+        views.forEach {
+            $1.translatesAutoresizingMaskIntoConstraints = false
+        }
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
+        navBarTopLayoutConstraint = constraints.first!
+        view.addConstraints(constraints)
+ 
     }
     
     public func moveToControllerAtIndex(index:Int, animated : Bool = true){
