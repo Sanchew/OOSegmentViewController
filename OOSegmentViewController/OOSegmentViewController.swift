@@ -27,7 +27,7 @@ public class OOSegmentViewController : UIPageViewController {
     private var lastScrollDirection = UIAccessibilityScrollDirection.Up
     private var scrollDistance = CGFloat(0)
     
-    private var navBarTopLayoutConstraint : NSLayoutConstraint!
+    public var navBarTopLayoutConstraint : NSLayoutConstraint!
     
     public var navBarHeight = CGFloat(40)
     public var segmentDelegate : OOSegmentDelegate?
@@ -84,6 +84,7 @@ public class OOSegmentViewController : UIPageViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        configConstraints()
     }
     
     class PageControlView: UIView {
@@ -151,15 +152,14 @@ public class OOSegmentViewController : UIPageViewController {
             scrollView.scrollsToTop = false
         }
         
-        configConstraints()
+        let view = PageControlView(view: self.view)
+        self.view = view
+        view.addSubview(navBar)
         
     }
     
     public func configConstraints() {
-        let views = ["navBar":navBar,"pageView":self.view]
-        let view = PageControlView(view: self.view)
-        self.view = view
-        view.addSubview(navBar)
+        let views = ["navBar":navBar,"pageView":(self.view as! PageControlView).view]
         //        let views = ["navBar":navBar,"pageView":view]
         views.forEach {
             $1.translatesAutoresizingMaskIntoConstraints = false
