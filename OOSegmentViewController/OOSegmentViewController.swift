@@ -209,6 +209,7 @@ public class OOSegmentViewController : UIPageViewController {
             return
         }
         navBarHideAnimate = true
+        scrollDistance = 0
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
@@ -230,6 +231,7 @@ public class OOSegmentViewController : UIPageViewController {
             topInset = scrollView.contentInset.top,
             buttomInset = scrollView.contentInset.bottom
         guard contentOffsetY >= 0 - topInset && contentOffsetY <= scrollView.contentSize.height + buttomInset - CGRectGetHeight(scrollView.bounds) else { return }
+        // 流动方向
         let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .Up : .Down
         if direction == lastScrollDirection {
             scrollDistance += scrollView.contentOffset.y - lastContentOffset
