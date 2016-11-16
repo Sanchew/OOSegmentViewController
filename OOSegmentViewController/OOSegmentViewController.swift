@@ -198,6 +198,8 @@ public class OOSegmentViewController : UIPageViewController {
     
     func viewControllerDidShow() {
 //        self.pageIndex = self.pendingIndex
+        scrollDistance = 0
+        lastContentOffset = 0
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
         setNavBarHidden(false,animated:false)
@@ -209,7 +211,6 @@ public class OOSegmentViewController : UIPageViewController {
             return
         }
         navBarHideAnimate = true
-        scrollDistance = 0
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
