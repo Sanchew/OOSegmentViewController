@@ -21,10 +21,10 @@ class CollectionView: UICollectionView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
-        let view = UIView(frame: CGRect(x: 0, y: -200, width: 414, height: 200))
-        view.backgroundColor = UIColor.redColor()
-        self.addSubview(view)
+//        self.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
+//        let view = UIView(frame: CGRect(x: 0, y: -200, width: 414, height: 200))
+//        view.backgroundColor = UIColor.redColor()
+//        self.addSubview(view)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -72,7 +72,7 @@ class CollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 50
+        return 200
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -84,7 +84,11 @@ class CollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("\(indexPath)")
+//        print("\(indexPath)")
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CollectionCell
+        cell?.title.text = "Touched"
+        
     }
     // MARK: UICollectionViewDelegate
 

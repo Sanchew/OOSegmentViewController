@@ -213,7 +213,6 @@ public class OOSegmentViewController : UIPageViewController {
         navBarHideAnimate = true
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             if 8 == NSProcessInfo().operatingSystemVersion.majorVersion {
                 var frame = self.view.subviews[0].frame
                 frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
@@ -221,6 +220,12 @@ public class OOSegmentViewController : UIPageViewController {
             }
             if (animated) {
                 self.view.layoutIfNeeded()
+                UIView.animateWithDuration(1.0, animations: {
+                    self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+                    self.view.layoutIfNeeded()
+                })
+            }else {
+                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             }
         }) { _ in
             self.navBarHideAnimate = false
