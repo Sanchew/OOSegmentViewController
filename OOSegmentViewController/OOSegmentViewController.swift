@@ -84,6 +84,7 @@ open class OOSegmentViewController : UIPageViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        configConstraints()
     }
     
     class PageControlView: UIView {
@@ -166,6 +167,24 @@ open class OOSegmentViewController : UIPageViewController {
             scrollView.scrollsToTop = false
         }
         
+        let view = PageControlView(view: self.view)
+        self.view = view
+        view.addSubview(navBar)
+        
+    }
+    
+    public func configConstraints() {
+        let views = ["navBar":navBar,"pageView":(self.view as! PageControlView).view]
+        //        let views = ["navBar":navBar,"pageView":view]
+        views.forEach {
+            $1.translatesAutoresizingMaskIntoConstraints = false
+        }
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
+        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
+        navBarTopLayoutConstraint = constraints.first!
+        view.addConstraints(constraints)
+ 
     }
     
     open func moveToControllerAtIndex(_ index:Int, animated : Bool = true){
@@ -194,6 +213,8 @@ open class OOSegmentViewController : UIPageViewController {
     
     func viewControllerDidShow() {
 //        self.pageIndex = self.pendingIndex
+        scrollDistance = 0
+        lastContentOffset = 0
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
         setNavBarHidden(false,animated:false)
@@ -215,6 +236,12 @@ open class OOSegmentViewController : UIPageViewController {
             }
             if (animated) {
                 self.view.layoutIfNeeded()
+                UIView.animateWithDuration(1.0, animations: {
+                    self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+                    self.view.layoutIfNeeded()
+                })
+            }else {
+                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             }
         }, completion: { _ in
             self.navBarHideAnimate = false

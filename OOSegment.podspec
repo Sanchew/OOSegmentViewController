@@ -18,6 +18,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/lijianwei-jj/OOSegmentViewController.git", :tag => s.version }
 
   s.source_files  = "OOSegmentViewController/OO*.swift"
+  
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => 2.3 }
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 end

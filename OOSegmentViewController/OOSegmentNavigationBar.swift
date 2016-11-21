@@ -10,7 +10,7 @@ import UIKit
 
 open class OOSegmentNavigationBar : UIScrollView {
 
-    var titles = [String]() {
+    public var titles = [String]() {
         didSet {
             configItems()
         }
@@ -44,7 +44,7 @@ open class OOSegmentNavigationBar : UIScrollView {
         configUI()
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
     }
@@ -68,7 +68,7 @@ open class OOSegmentNavigationBar : UIScrollView {
         
     }
     
-    func configUI() {
+    public func configUI() {
         self.showsHorizontalScrollIndicator = false
         
         addSubview(contentView)
@@ -76,14 +76,14 @@ open class OOSegmentNavigationBar : UIScrollView {
         contentView.addSubview(cursor)
     }
 
-    func configItems() {
+    public func configItems() {
 //        guard titleItemMap.count == 0 else {
 //            return
 //        }
         guard let _ = titleColor,let _ = titleSelectedColor,let _ = fontSize else {
             return
         }
-        print("configItems")
+//        print("configItems")
         titleItemMap.values.forEach { $0.removeFromSuperview() }
         titles.enumerated().forEach {
             let item = UIButton()

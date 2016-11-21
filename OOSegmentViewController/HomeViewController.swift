@@ -15,12 +15,14 @@ class HomeViewController: OOSegmentViewController{
         print(aDecoder)
         super.init(coder: aDecoder)
         titles = [
-            "One",
-            "Two",
-            "HHHHHH"
+            "Unused",
+            "Expired",
+            "Used",
+            "Coupon Card"
         ]
         cursorMoveEffect = OOCursorLeftDockMoveEffect()
         controllers = [
+            createController(),
             createController(),
             createController(),
             createController()
