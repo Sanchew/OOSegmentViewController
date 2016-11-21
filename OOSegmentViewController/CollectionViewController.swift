@@ -84,7 +84,10 @@ class CollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath)")
+//        print("\(indexPath)")
+        
+        let cell = collectionView.cellForItem(at: indexPath as IndexPath) as? CollectionCell
+        cell?.title.text = "Touched"
     }
     // MARK: UICollectionViewDelegate
 

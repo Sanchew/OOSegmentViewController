@@ -44,13 +44,13 @@ class HomeViewController: OOSegmentViewController{
         sender.tag += 1
         titles += [title]
         controllers += [createController()]
-        moveToControllerAtIndex(pageIndex)
+        moveToControllerAtIndex(index: pageIndex)
     }
     
     
     func createController() -> UIViewController {
         let vc = UIViewController()
-        //vc.view.backgroundColor = UIColor(red: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), green: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), blue: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)), alpha: CGFloat(CGFloat(random())/CGFloat(RAND_MAX)))
+        vc.view.backgroundColor = UIColor(red: CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX)), green: CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX)), blue: CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX)), alpha: 1)
         return vc
     }
 

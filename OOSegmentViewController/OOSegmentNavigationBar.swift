@@ -16,11 +16,11 @@ open class OOSegmentNavigationBar : UIScrollView {
         }
     }
     
-    var titleColor : UIColor!
-    var titleSelectedColor : UIColor!
-    var fontSize : CGFloat!
-    var cursorBottomMargin : CGFloat?
-    var cursorHeight : CGFloat!
+    open var titleColor : UIColor!
+    open var titleSelectedColor : UIColor!
+    open var fontSize : CGFloat!
+    open var cursorBottomMargin : CGFloat?
+    open var cursorHeight : CGFloat!
     open var itemMargin : CGFloat = 0
     open var itemOffset : CGFloat = 0
     
@@ -32,14 +32,14 @@ open class OOSegmentNavigationBar : UIScrollView {
     var moveEffect : CursorMoveEffect!
     fileprivate var contentView = UIView(frame: CGRect.zero)
 //    private var lastContentOffset = CGFloat(0)
-    fileprivate var cursor = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 2))
+    open var cursor = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 2))
     var cursorColor : UIColor! {
         didSet {
             cursor.backgroundColor = cursorColor
         }
     }
     
-    init(){
+    public init(){
         super.init(frame: CGRect.zero)
         configUI()
     }
@@ -100,7 +100,7 @@ open class OOSegmentNavigationBar : UIScrollView {
         layoutItems()
     }
     
-    func layoutItems() {
+    open func layoutItems() {
         guard frame.height > 0 else {
             return
         }
@@ -129,7 +129,7 @@ open class OOSegmentNavigationBar : UIScrollView {
     }
     
     func itemClick(_ sender:UIButton) {
-        segmentViewController?.moveToControllerAtIndex(sender.tag)
+        segmentViewController?.moveToControllerAtIndex(index: sender.tag)
     }
     
     func titleWidthAtFont(_ font:UIFont,index:Int) -> CGFloat {

@@ -21,13 +21,13 @@ import UIKit
 open class OOSegmentViewController : UIPageViewController {
     
 //    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-    fileprivate var navBar = OOSegmentNavigationBar()
+    open var navBar = OOSegmentNavigationBar()
     fileprivate var navBarHideAnimate = false
     fileprivate var lastContentOffset = CGFloat(0)
     fileprivate var lastScrollDirection = UIAccessibilityScrollDirection.up
     fileprivate var scrollDistance = CGFloat(0)
     
-    fileprivate var navBarTopLayoutConstraint : NSLayoutConstraint!
+    open var navBarTopLayoutConstraint : NSLayoutConstraint!
     
     open var navBarHeight = CGFloat(40)
     open var segmentDelegate : OOSegmentDelegate?
@@ -126,22 +126,7 @@ open class OOSegmentViewController : UIPageViewController {
 //        view.insertSubview(pageViewController.view, atIndex: 0)
 //        pageViewController.didMoveToParentViewController(self)
        
-        
-        
         setViewControllers([controllers[pageIndex]], direction: .forward, animated: false, completion: nil)
-        let views:[String:UIView] = ["navBar":navBar,"pageView":self.view]
-        let view = PageControlView(view: self.view)
-        self.view = view
-        view.addSubview(navBar)
-//        let views = ["navBar":navBar,"pageView":view]
-        views.forEach {
-            $1.translatesAutoresizingMaskIntoConstraints = false
-        }
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navBar]|", options: NSLayoutFormatOptions(), metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[pageView]|", options: NSLayoutFormatOptions(), metrics: nil, views: views))
-        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[navBar(\(navBarHeight))][pageView]|", options: NSLayoutFormatOptions(), metrics: nil, views: views)
-        navBarTopLayoutConstraint = constraints.first!
-        view.addConstraints(constraints)
         
         navBar.backgroundColor = navBarBackgroundColor
         navBar.titleColor = titleColor
@@ -173,21 +158,21 @@ open class OOSegmentViewController : UIPageViewController {
         
     }
     
-    public func configConstraints() {
+    open func configConstraints() {
         let views = ["navBar":navBar,"pageView":(self.view as! PageControlView).view]
         //        let views = ["navBar":navBar,"pageView":view]
         views.forEach {
             $1.translatesAutoresizingMaskIntoConstraints = false
         }
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[navBar]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views))
-        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[navBar(\(navBarHeight))][pageView]|", options: .DirectionLeadingToTrailing, metrics: nil, views: views)
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navBar]|", options: .directionLeadingToTrailing, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[pageView]|", options: .directionLeadingToTrailing, metrics: nil, views: views))
+        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[navBar(\(navBarHeight))][pageView]|", options: .directionLeadingToTrailing, metrics: nil, views: views)
         navBarTopLayoutConstraint = constraints.first!
         view.addConstraints(constraints)
  
     }
     
-    open func moveToControllerAtIndex(_ index:Int, animated : Bool = true){
+    public func moveToControllerAtIndex(index:Int, animated : Bool = true){
         guard index >= 0 && index < controllers.count else {
             return
         }
@@ -228,7 +213,6 @@ open class OOSegmentViewController : UIPageViewController {
         navBarHideAnimate = true
         
         UIView.animate(withDuration: 0.25, animations: { () -> Void in
-            self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
                 var frame = self.view.subviews[0].frame
                 frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
@@ -236,7 +220,7 @@ open class OOSegmentViewController : UIPageViewController {
             }
             if (animated) {
                 self.view.layoutIfNeeded()
-                UIView.animateWithDuration(1.0, animations: {
+                UIView.animate(withDuration: 1.0, animations: {
                     self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
                     self.view.layoutIfNeeded()
                 })
@@ -253,6 +237,7 @@ open class OOSegmentViewController : UIPageViewController {
             topInset = scrollView.contentInset.top,
             buttomInset = scrollView.contentInset.bottom
         guard contentOffsetY >= 0 - topInset && contentOffsetY <= scrollView.contentSize.height + buttomInset - scrollView.bounds.height else { return }
+        // 流动方向
         let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .up : .down
         if direction == lastScrollDirection {
             scrollDistance += scrollView.contentOffset.y - lastContentOffset
