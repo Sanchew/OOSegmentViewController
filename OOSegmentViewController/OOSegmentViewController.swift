@@ -220,10 +220,8 @@ open class OOSegmentViewController : UIPageViewController {
             }
             if (animated) {
                 self.view.layoutIfNeeded()
-                UIView.animate(withDuration: 1.0, animations: {
-                    self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-                    self.view.layoutIfNeeded()
-                })
+                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+                self.view.layoutIfNeeded()
             }else {
                 self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
             }
