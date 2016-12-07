@@ -22,7 +22,7 @@ open class OOSegmentViewController : UIPageViewController {
     
 //    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     open var navBar = OOSegmentNavigationBar()
-    fileprivate var navBarHideAnimate = false
+//    fileprivate var navBarHideAnimate = false
     fileprivate var lastContentOffset = CGFloat(0)
     fileprivate var lastScrollDirection = UIAccessibilityScrollDirection.up
     fileprivate var scrollDistance = CGFloat(0)
@@ -202,32 +202,62 @@ open class OOSegmentViewController : UIPageViewController {
         lastContentOffset = 0
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
-        setNavBarHidden(false,animated:false)
+//        setNavBarHidden(false,animated:false)
+        setNavBarHidden(false,scroll:navBarHeight)
         segmentDelegate?.segmentViewController?(self, didShowViewController: (viewControllers?.last)!)
     }
     
-    open func setNavBarHidden(_ hidden: Bool , animated : Bool = true) {
+//    open func setNavBarHidden(_ hidden: Bool , animated : Bool = true) {
+//        guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
+//            return
+//        }
+//        navBarHideAnimate = true
+//        
+//        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+//            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
+//                var frame = self.view.subviews[0].frame
+//                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
+//                self.view.subviews[0].frame = frame
+//            }
+//            if (animated) {
+//                self.view.layoutIfNeeded()
+//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+//                self.view.layoutIfNeeded()
+//            }else {
+//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+//            }
+//            }, completion: { _ in
+//                self.navBarHideAnimate = false
+//        })
+//    }
+    
+    open func setNavBarHidden(_ hidden: Bool , scroll: CGFloat) {
         guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
             return
         }
-        navBarHideAnimate = true
-        
-        UIView.animate(withDuration: 0.25, animations: { () -> Void in
-            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
-                var frame = self.view.subviews[0].frame
-                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
-                self.view.subviews[0].frame = frame
-            }
-            if (animated) {
-                self.view.layoutIfNeeded()
-                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-                self.view.layoutIfNeeded()
-            }else {
-                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-            }
-        }, completion: { _ in
-            self.navBarHideAnimate = false
-        }) 
+//        navBarHideAnimate = true
+//        
+//        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+//            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
+//                var frame = self.view.subviews[0].frame
+//                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
+//                self.view.subviews[0].frame = frame
+//            }
+//            if (animated) {
+//                self.view.layoutIfNeeded()
+//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+//                self.view.layoutIfNeeded()
+//            }else {
+//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+//            }
+//            }, completion: { _ in
+//                self.navBarHideAnimate = false
+//        })
+        if hidden {
+            self.navBarTopLayoutConstraint.constant = floor(max(-scroll,-self.navBarHeight))
+        } else {
+            self.navBarTopLayoutConstraint.constant = floor(min(scroll - self.navBarHeight,0))
+        }
     }
     
     open func followScrollView(_ scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
@@ -246,17 +276,30 @@ open class OOSegmentViewController : UIPageViewController {
         lastContentOffset = scrollView.contentOffset.y
 //        print("distance \(scrollDistance) \(contentOffsetY)  \(scrollView.contentSize.height)")
 //        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
-        if abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
-            
-            if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
-                // 隐藏
-                setNavBarHidden(true)
-                navBarHideChangeHandler?(true)
-            } else if direction == .down && self.navBarTopLayoutConstraint.constant == -navBarHeight {
-                // 显示
-                setNavBarHidden(false)
-                navBarHideChangeHandler?(false)
-            }
+//        if abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+//            if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
+//                 隐藏
+//                                setNavBarHidden(true)
+//                setNavBarHidden(true,scroll: abs(scrollDistance))
+//                navBarHideChangeHandler?(true)
+//            } else if direction == .down && self.navBarTopLayoutConstraint.constant == -navBarHeight {
+//                 显示
+//                                setNavBarHidden(false)
+//                setNavBarHidden(false,scroll: abs(scrollDistance))
+//                navBarHideChangeHandler?(false)
+//            }
+//        }
+        
+        
+//        if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
+        if direction == .up && self.navBarTopLayoutConstraint.constant > -navBarHeight {
+            // 隐藏
+            setNavBarHidden(true,scroll: abs(scrollDistance))
+            navBarHideChangeHandler?(true)
+        } else if direction == .down && self.navBarTopLayoutConstraint.constant < 0 {
+            // 显示
+            setNavBarHidden(false,scroll: abs(scrollDistance))
+            navBarHideChangeHandler?(false)
         }
     }
     
