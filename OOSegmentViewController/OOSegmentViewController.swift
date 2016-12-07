@@ -20,11 +20,12 @@ import UIKit
 
 open class OOSegmentViewController : UIPageViewController {
     
-//    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    //    private var pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     open var navBar = OOSegmentNavigationBar()
-//    fileprivate var navBarHideAnimate = false
+    //    fileprivate var navBarHideAnimate = false
     fileprivate var lastContentOffset = CGFloat(0)
     fileprivate var lastScrollDirection = UIAccessibilityScrollDirection.up
+    fileprivate var lastNavBarTop = CGFloat(0)
     fileprivate var scrollDistance = CGFloat(0)
     
     open var navBarTopLayoutConstraint : NSLayoutConstraint!
@@ -45,9 +46,9 @@ open class OOSegmentViewController : UIPageViewController {
     
     open var pageIndex = 0 {
         didSet {
-//            if pageIndex != oldValue {
-//                moveToControllerAtIndex(pageIndex)
-//            }
+            //            if pageIndex != oldValue {
+            //                moveToControllerAtIndex(pageIndex)
+            //            }
             pendingIndex = pageIndex
         }
     }
@@ -77,7 +78,7 @@ open class OOSegmentViewController : UIPageViewController {
     }
     
     required public init?(coder: NSCoder) {
-//        super.init(coder: coder)
+        //        super.init(coder: coder)
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
@@ -122,10 +123,10 @@ open class OOSegmentViewController : UIPageViewController {
         delegate = self
         dataSource = self
         
-//        addChildViewController(pageViewController)
-//        view.insertSubview(pageViewController.view, atIndex: 0)
-//        pageViewController.didMoveToParentViewController(self)
-       
+        //        addChildViewController(pageViewController)
+        //        view.insertSubview(pageViewController.view, atIndex: 0)
+        //        pageViewController.didMoveToParentViewController(self)
+        
         setViewControllers([controllers[pageIndex]], direction: .forward, animated: false, completion: nil)
         
         navBar.backgroundColor = navBarBackgroundColor
@@ -169,7 +170,7 @@ open class OOSegmentViewController : UIPageViewController {
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[navBar(\(navBarHeight))][pageView]|", options: .directionLeadingToTrailing, metrics: nil, views: views)
         navBarTopLayoutConstraint = constraints.first!
         view.addConstraints(constraints)
- 
+        
     }
     
     public func moveToControllerAtIndex(index:Int, animated : Bool = true){
@@ -186,7 +187,7 @@ open class OOSegmentViewController : UIPageViewController {
         setViewControllers([controllers[index]], direction: direction, animated: animated) { [weak self] completed in
             if completed {
                 self?.viewControllerDidShow()
-//                self?.pendingIndex = -1
+                //                self?.pendingIndex = -1
             }
         }
     }
@@ -197,73 +198,75 @@ open class OOSegmentViewController : UIPageViewController {
     }
     
     func viewControllerDidShow() {
-//        self.pageIndex = self.pendingIndex
+        //        self.pageIndex = self.pendingIndex
         scrollDistance = 0
         lastContentOffset = 0
+        lastNavBarTop = 0
         self.pageIndex = getFocusViewControllerIndex()
         navBar.updateSelectItem(self.pageIndex)
-//        setNavBarHidden(false,animated:false)
+        //        setNavBarHidden(false,animated:false)
         setNavBarHidden(false,scroll:navBarHeight)
         segmentDelegate?.segmentViewController?(self, didShowViewController: (viewControllers?.last)!)
     }
     
-//    open func setNavBarHidden(_ hidden: Bool , animated : Bool = true) {
-//        guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
-//            return
-//        }
-//        navBarHideAnimate = true
-//        
-//        UIView.animate(withDuration: 0.25, animations: { () -> Void in
-//            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
-//                var frame = self.view.subviews[0].frame
-//                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
-//                self.view.subviews[0].frame = frame
-//            }
-//            if (animated) {
-//                self.view.layoutIfNeeded()
-//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-//                self.view.layoutIfNeeded()
-//            }else {
-//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-//            }
-//            }, completion: { _ in
-//                self.navBarHideAnimate = false
-//        })
-//    }
+    //    open func setNavBarHidden(_ hidden: Bool , animated : Bool = true) {
+    //        guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
+    //            return
+    //        }
+    //        navBarHideAnimate = true
+    //
+    //        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+    //            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
+    //                var frame = self.view.subviews[0].frame
+    //                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
+    //                self.view.subviews[0].frame = frame
+    //            }
+    //            if (animated) {
+    //                self.view.layoutIfNeeded()
+    //                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+    //                self.view.layoutIfNeeded()
+    //            }else {
+    //                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+    //            }
+    //            }, completion: { _ in
+    //                self.navBarHideAnimate = false
+    //        })
+    //    }
     
     open func setNavBarHidden(_ hidden: Bool , scroll: CGFloat) {
         guard hidden || self.navBarTopLayoutConstraint.constant != 0 else {
             return
         }
-//        navBarHideAnimate = true
-//        
-//        UIView.animate(withDuration: 0.25, animations: { () -> Void in
-//            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
-//                var frame = self.view.subviews[0].frame
-//                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
-//                self.view.subviews[0].frame = frame
-//            }
-//            if (animated) {
-//                self.view.layoutIfNeeded()
-//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-//                self.view.layoutIfNeeded()
-//            }else {
-//                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
-//            }
-//            }, completion: { _ in
-//                self.navBarHideAnimate = false
-//        })
+        //        navBarHideAnimate = true
+        //
+        //        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+        //            if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
+        //                var frame = self.view.subviews[0].frame
+        //                frame.size.height += self.navBarHeight * (hidden ? 1 : -1)
+        //                self.view.subviews[0].frame = frame
+        //            }
+        //            if (animated) {
+        //                self.view.layoutIfNeeded()
+        //                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+        //                self.view.layoutIfNeeded()
+        //            }else {
+        //                self.navBarTopLayoutConstraint.constant = hidden ? -self.navBarHeight : 0
+        //            }
+        //            }, completion: { _ in
+        //                self.navBarHideAnimate = false
+        //        })
+        
         if hidden {
-            self.navBarTopLayoutConstraint.constant = floor(max(-scroll,-self.navBarHeight))
+            self.navBarTopLayoutConstraint.constant = floor(max(lastNavBarTop-scroll,-navBarHeight))
         } else {
-            self.navBarTopLayoutConstraint.constant = floor(min(scroll - self.navBarHeight,0))
+            self.navBarTopLayoutConstraint.constant = floor(min(lastNavBarTop+scroll,0))
         }
     }
     
     open func followScrollView(_ scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
         let contentOffsetY = scrollView.contentOffset.y,
-            topInset = scrollView.contentInset.top,
-            buttomInset = scrollView.contentInset.bottom
+        topInset = scrollView.contentInset.top,
+        buttomInset = scrollView.contentInset.bottom
         guard contentOffsetY >= 0 - topInset && contentOffsetY <= scrollView.contentSize.height + buttomInset - scrollView.bounds.height else { return }
         // 流动方向
         let direction: UIAccessibilityScrollDirection = (scrollView.contentOffset.y > lastContentOffset) ? .up : .down
@@ -271,27 +274,28 @@ open class OOSegmentViewController : UIPageViewController {
             scrollDistance += scrollView.contentOffset.y - lastContentOffset
         }else{
             lastScrollDirection = direction
+            lastNavBarTop = self.navBarTopLayoutConstraint.constant
             scrollDistance = 0
         }
         lastContentOffset = scrollView.contentOffset.y
-//        print("distance \(scrollDistance) \(contentOffsetY)  \(scrollView.contentSize.height)")
-//        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
-//        if abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
-//            if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
-//                 隐藏
-//                                setNavBarHidden(true)
-//                setNavBarHidden(true,scroll: abs(scrollDistance))
-//                navBarHideChangeHandler?(true)
-//            } else if direction == .down && self.navBarTopLayoutConstraint.constant == -navBarHeight {
-//                 显示
-//                                setNavBarHidden(false)
-//                setNavBarHidden(false,scroll: abs(scrollDistance))
-//                navBarHideChangeHandler?(false)
-//            }
-//        }
+        //        print("distance \(scrollDistance) \(contentOffsetY)  \(scrollView.contentSize.height)")
+        //        if scrollView.tracking == true && abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+        //        if abs(scrollDistance) > navBarHeight && navBarHideAnimate == false {
+        //            if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
+        //                 隐藏
+        //                                setNavBarHidden(true)
+        //                setNavBarHidden(true,scroll: abs(scrollDistance))
+        //                navBarHideChangeHandler?(true)
+        //            } else if direction == .down && self.navBarTopLayoutConstraint.constant == -navBarHeight {
+        //                 显示
+        //                                setNavBarHidden(false)
+        //                setNavBarHidden(false,scroll: abs(scrollDistance))
+        //                navBarHideChangeHandler?(false)
+        //            }
+        //        }
         
         
-//        if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
+        //        if direction == .up && self.navBarTopLayoutConstraint.constant == 0 {
         if direction == .up && self.navBarTopLayoutConstraint.constant > -navBarHeight {
             // 隐藏
             setNavBarHidden(true,scroll: abs(scrollDistance))
@@ -340,3 +344,4 @@ extension OOSegmentViewController : UIPageViewControllerDelegate,UIPageViewContr
     }
     
 }
+
