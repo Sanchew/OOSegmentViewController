@@ -32,7 +32,7 @@ open class OOSegmentViewController : UIPageViewController {
     
     open var navBarHeight = CGFloat(40)
     open var segmentDelegate : OOSegmentDelegate?
-    open var itemSize = CGSize.zero
+    open var itemHeight = CGFloat(0)
     open var titleColor = UIColor.black
     open var titleSelectedColor = UIColor.red
     open var fontSize = CGFloat(15)
@@ -143,7 +143,7 @@ open class OOSegmentViewController : UIPageViewController {
         navBar.cursorHeight = cursorHeight
         navBar.cursorBottomMargin = cursorBottomMargin
         navBar.fontSize = fontSize
-        navBar.itemSize = itemSize
+        navBar.itemHeight = itemHeight
         navBar.segmentViewController = self
         if titles.count == 0 && images.count == 0 {
             autoFetchTitles = true

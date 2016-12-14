@@ -30,7 +30,7 @@ open class OOSegmentNavigationBar : UIScrollView {
         return isTitleItem ? titles : images
     }
     
-    open var itemSize : CGSize!
+    open var itemHeight : CGFloat!
     open var titleColor : UIColor!
     open var titleSelectedColor : UIColor!
     open var fontSize : CGFloat!
@@ -129,9 +129,11 @@ open class OOSegmentNavigationBar : UIScrollView {
         contentView.frame.origin.x  = 0
         var contentWidth = itemOffset
         datas.enumerated().forEach {
+            let itemSize = (datas[$0] as? UIImage)?.size ?? CGSize.zero
             let item = titleItemMap[$1]
-            let itemWidth = isTitleItem ? ceil(titleWidthAtFont(UIFont.systemFont(ofSize: fontSize), index: $0)) : itemSize.width
-            item?.frame = CGRect(x: contentWidth, y: 0, width: itemWidth, height: isTitleItem ? self.frame.height : itemSize.height)
+            let itemWidth = isTitleItem ? ceil(titleWidthAtFont(UIFont.systemFont(ofSize: fontSize), index: $0)) : itemHeight / itemSize.height * itemSize.width
+            let y = isTitleItem ? 0 : (self.frame.height - itemHeight) / 2.0
+            item?.frame = CGRect(x: contentWidth, y: y, width: itemWidth, height: isTitleItem ? self.frame.height : itemHeight)
             if $0 == segmentViewController?.pageIndex ?? 0 {
                 cursor.frame.size.width = itemWidth + 4
                 cursor.frame.origin.x = contentWidth - 2

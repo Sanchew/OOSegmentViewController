@@ -24,7 +24,7 @@ class HomeViewController: OOSegmentViewController{
             UIImage(named: "credit1")!,
             UIImage(named: "paypal1")!
         ]
-        itemSize = CGSize(width: 70, height: 40)
+        itemHeight = 27
         cursorMoveEffect = OOCursorLeftDockMoveEffect()
         controllers = [
             createController(),
