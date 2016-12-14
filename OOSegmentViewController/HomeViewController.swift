@@ -14,22 +14,28 @@ class HomeViewController: OOSegmentViewController{
     required init?(coder aDecoder: NSCoder) {
         print(aDecoder)
         super.init(coder: aDecoder)
-        titles = [
-            "Unused",
-            "Expired",
-            "Used",
-            "Coupon Card"
+//        titles = [
+//            "Unused",
+//            "Expired",
+//            "Used",
+//            "Coupon Card"
+//        ]
+        images = [
+            UIImage(named: "credit1")!,
+            UIImage(named: "paypal1")!
         ]
+        itemSize = CGSize(width: 70, height: 40)
         cursorMoveEffect = OOCursorLeftDockMoveEffect()
         controllers = [
-            createController(),
-            createController(),
             createController(),
             createController()
         ]
         cursorColor = UIColor.black
         titleMargin = 30
-        pageIndex = 2
+        pageIndex = 1
+        cursorBottomMargin = 0
+        cursorHeight = 1
+        cursorColor = .red
     }
     
     override func viewDidLoad() {

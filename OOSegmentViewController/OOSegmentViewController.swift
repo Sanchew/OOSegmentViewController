@@ -32,6 +32,7 @@ open class OOSegmentViewController : UIPageViewController {
     
     open var navBarHeight = CGFloat(40)
     open var segmentDelegate : OOSegmentDelegate?
+    open var itemSize = CGSize.zero
     open var titleColor = UIColor.black
     open var titleSelectedColor = UIColor.red
     open var fontSize = CGFloat(15)
@@ -58,6 +59,12 @@ open class OOSegmentViewController : UIPageViewController {
         didSet {
             pageIndex = 0
             navBar.titles = titles
+        }
+    }
+    open var images = [UIImage]() {
+        didSet {
+            pageIndex = 0
+            navBar.images = images
         }
     }
     open var controllers = [UIViewController]() {
@@ -136,14 +143,19 @@ open class OOSegmentViewController : UIPageViewController {
         navBar.cursorHeight = cursorHeight
         navBar.cursorBottomMargin = cursorBottomMargin
         navBar.fontSize = fontSize
+        navBar.itemSize = itemSize
         navBar.segmentViewController = self
-        if titles.count == 0 {
+        if titles.count == 0 && images.count == 0 {
             autoFetchTitles = true
             controllers.forEach {
                 titles.append($0.title ?? "")
             }
         }
-        navBar.titles = titles
+        if titles.count > 0 {
+            navBar.titles = titles
+        }else{
+            navBar.images = images
+        }
         navBar.itemMargin = titleMargin
         navBar.itemOffset = titleOffset
         navBar.moveEffect = cursorMoveEffect

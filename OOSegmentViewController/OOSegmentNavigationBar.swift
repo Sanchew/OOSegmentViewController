@@ -10,12 +10,27 @@ import UIKit
 
 open class OOSegmentNavigationBar : UIScrollView {
 
+    public var isTitleItem = true
+    
     public var titles = [String]() {
         didSet {
+            isTitleItem = true
             configItems()
         }
     }
     
+    public var images = [UIImage]() {
+        didSet {
+            isTitleItem = false
+            configItems()
+        }
+    }
+    
+    fileprivate var datas: [AnyHashable] {
+        return isTitleItem ? titles : images
+    }
+    
+    open var itemSize : CGSize!
     open var titleColor : UIColor!
     open var titleSelectedColor : UIColor!
     open var fontSize : CGFloat!
@@ -26,7 +41,7 @@ open class OOSegmentNavigationBar : UIScrollView {
     
     var segmentViewController : OOSegmentViewController?
     
-    fileprivate var titleItemMap = [String:UIButton]()
+    fileprivate var titleItemMap = [AnyHashable:UIButton]()
     fileprivate var selectedItem : UIButton!
     
     var moveEffect : CursorMoveEffect!
@@ -85,17 +100,24 @@ open class OOSegmentNavigationBar : UIScrollView {
         }
 //        print("configItems")
         titleItemMap.values.forEach { $0.removeFromSuperview() }
-        titles.enumerated().forEach {
+        datas.enumerated().forEach {
             let item = UIButton()
             item.tag = $0
-            item.setTitle($1, for: UIControlState())
-            item.setTitleColor(titleColor, for: UIControlState())
-            item.setTitleColor(titleSelectedColor, for: .selected)
-            item.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+            if isTitleItem {
+                let title = $1 as? String
+                item.setTitle(title, for: .normal)
+                item.setTitleColor(titleColor, for: .normal)
+                item.setTitleColor(titleSelectedColor, for: .selected)
+                item.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+            }else{
+                let image = $1 as? UIImage
+                item.setImage(image, for: .selected)
+                item.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
+                item.tintColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+            }
             item.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
             titleItemMap[$1] = item
             contentView.addSubview(item)
-            
         }
         layoutItems()
     }
@@ -106,10 +128,10 @@ open class OOSegmentNavigationBar : UIScrollView {
         }
         contentView.frame.origin.x  = 0
         var contentWidth = itemOffset
-        titles.enumerated().forEach {
+        datas.enumerated().forEach {
             let item = titleItemMap[$1]
-            let itemWidth = ceil(titleWidthAtFont(UIFont.systemFont(ofSize: fontSize), index: $0))
-            item?.frame = CGRect(x: contentWidth, y: 0, width: itemWidth, height: self.frame.height)
+            let itemWidth = isTitleItem ? ceil(titleWidthAtFont(UIFont.systemFont(ofSize: fontSize), index: $0)) : itemSize.width
+            item?.frame = CGRect(x: contentWidth, y: 0, width: itemWidth, height: isTitleItem ? self.frame.height : itemSize.height)
             if $0 == segmentViewController?.pageIndex ?? 0 {
                 cursor.frame.size.width = itemWidth + 4
                 cursor.frame.origin.x = contentWidth - 2
@@ -139,7 +161,7 @@ open class OOSegmentNavigationBar : UIScrollView {
     func updateSelectItem(_ newIndex: Int) {
 //        if let pageIndex = segmentViewController?.pendingIndex {
             selectedItem.isSelected = false
-            selectedItem = titleItemMap[titles[newIndex]]
+            selectedItem = titleItemMap[datas[newIndex]]
             selectedItem.isSelected = true
 //        }
     }
@@ -173,10 +195,10 @@ extension OOSegmentNavigationBar : UIScrollViewDelegate {
             index = scrollView.contentOffset.x > fullWidth ? oldIndex + 1 : oldIndex - 1
         }
         
-        guard index >= 0 && index < titles.count else {
+        guard index >= 0 && index < datas.count else {
             return
         }
-        let button = titleItemMap[titles[index]]! , oldButton = titleItemMap[titles[oldIndex]]!
+        let button = titleItemMap[datas[index]]! , oldButton = titleItemMap[datas[oldIndex]]!
        
         if let _ = moveEffect.scroll?(scrollView, navBar: self, cursor: self.cursor, newItem: button, oldItem: oldButton) {
             return
