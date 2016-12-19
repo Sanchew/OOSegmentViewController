@@ -273,6 +273,11 @@ open class OOSegmentViewController : UIPageViewController {
         } else {
             self.navBarTopLayoutConstraint.constant = floor(min(lastNavBarTop+scroll,0))
         }
+        if 8 == ProcessInfo().operatingSystemVersion.majorVersion {
+            var frame = self.view.subviews[0].frame
+            frame.size.height -= self.navBarTopLayoutConstraint.constant
+            self.view.subviews[0].frame = frame
+        }
     }
     
     open func followScrollView(_ scrollView: UIScrollView,navBarHideChangeHandler:((Bool)->())? = nil) {
