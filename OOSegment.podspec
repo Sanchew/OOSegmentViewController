@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "OOSegment"
-  s.version      = "4.3.2"
+  s.version      = "4.3.3"
   s.summary      = "oosegment pageviewcontroller navigatioin"
 
   s.description  = <<-DESC

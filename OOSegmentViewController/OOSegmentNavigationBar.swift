@@ -135,7 +135,7 @@ open class OOSegmentNavigationBar : UIScrollView {
             let y = isTitleItem ? 0 : (self.frame.height - itemHeight) / 2.0
             item?.frame = CGRect(x: contentWidth, y: y, width: itemWidth, height: isTitleItem ? self.frame.height : itemHeight)
             if $0 == segmentViewController?.pageIndex ?? 0 {
-                cursor.frame.size.width = itemWidth + 4
+                cursor.frame.size.width = itemWidth 
                 cursor.frame.origin.x = contentWidth - 2
                 item?.isSelected = true
                 selectedItem = item
