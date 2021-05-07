@@ -107,11 +107,11 @@ open class OOSegmentViewController : UIPageViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        var pageControl:UIPageControl? {
+        @objc var pageControl:UIPageControl? {
             return view.value(forKey: "_pageControl") as? UIPageControl
         }
         
-        var scrollView:UIScrollView {
+        @objc var scrollView:UIScrollView {
             return view.value(forKey: "_scrollView") as! UIScrollView
         }
         
@@ -189,7 +189,7 @@ open class OOSegmentViewController : UIPageViewController {
         guard index >= 0 && index < controllers.count else {
             return
         }
-        let direction : UIPageViewControllerNavigationDirection = index > pageIndex ? .forward : .reverse
+        let direction : UIPageViewController.NavigationDirection = index > pageIndex ? .forward : .reverse
         pendingIndex = index
         viewControllerWillShow()
         if pageIndex == pendingIndex {

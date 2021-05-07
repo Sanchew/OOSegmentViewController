@@ -14,13 +14,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let button = UIButton(frame: CGRect(x: 0,y: 100,width: self.view.frame.width,height: 30))
-        button.setTitle("Click ME", for: UIControlState())
-        button.setTitleColor(UIColor.red, for: UIControlState())
+        button.setTitle("Click ME", for: UIControl.State())
+        button.setTitleColor(UIColor.red, for: UIControl.State())
         button.addTarget(self, action: #selector(clickAction), for: .touchUpInside)
         self.view.addSubview(button)
     }
 
-    func clickAction() {
+    @objc func clickAction() {
         let vc = OOSegmentViewController()
         vc.titles = [
             "WorkKKKK",

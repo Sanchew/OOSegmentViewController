@@ -152,12 +152,12 @@ open class OOSegmentNavigationBar : UIScrollView {
         }
     }
     
-    func itemClick(_ sender:UIButton) {
+    @objc func itemClick(_ sender:UIButton) {
         segmentViewController?.moveToControllerAtIndex(index: sender.tag)
     }
     
     func titleWidthAtFont(_ font:UIFont,index:Int) -> CGFloat {
-        return titles[index].boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: font.lineHeight), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size.width + 4
+        return titles[index].boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: font.lineHeight), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil).size.width + 4
     }
     
     func updateSelectItem(_ newIndex: Int) {

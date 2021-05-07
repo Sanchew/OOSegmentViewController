@@ -92,7 +92,7 @@ class CollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("\(touches)       \(event)")
+        print("\(touches)       \(String(describing: event))")
         super.touchesEnded(touches, with: event)
     }
     

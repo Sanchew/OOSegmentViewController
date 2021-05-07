@@ -44,7 +44,7 @@ class HomeViewController: OOSegmentViewController{
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(action(_:)))
     }
     
-    func action(_ sender:UIButton) {
+    @objc func action(_ sender:UIButton) {
 //        moveToControllerAtIndex(2,animated: false)
         let title = "what\(sender.tag)"
         sender.tag += 1
