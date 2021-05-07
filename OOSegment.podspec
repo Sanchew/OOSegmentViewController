@@ -13,12 +13,12 @@ Pod::Spec.new do |s|
 
   s.author             = { "lijianwei" => "lijianwei.jj@gmail.com" }
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "10.0"
 
   s.source       = { :git => "https://github.com/sanchew/OOSegmentViewController.git", :tag => s.version }
 
   s.source_files  = "OOSegmentViewController/OO*.swift"
   
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.swift_version = "4.2"
 end
